@@ -1,0 +1,15 @@
+import dotenv from 'dotenv'
+
+import { DbTypeEnum, NodeEnvEnum } from '@/constants'
+import { AppConfig } from '@/types'
+
+dotenv.config()
+
+export const appConfig: AppConfig = {
+  PORT: process.env.PORT ?? '8001',
+  NODE_ENV: (process.env.NODE_ENV as NodeEnvEnum) ?? NodeEnvEnum.DEVELOPMENT,
+  db: {
+    TYPE: (process.env.DATABASE_TYPE as DbTypeEnum) ?? DbTypeEnum.POSTGRES,
+    DATABASE_CONNECTION: process.env.DATABASE_CONNECTION ?? '',
+  },
+}
