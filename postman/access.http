@@ -3,7 +3,7 @@
 ### signup
 POST {{url_dev}}/signup
 Content-Type: application/json
-x-api-key: 1441e5463d7e0fcf6f61b6b487377616c144c9d5209d76483ea5cfa7faeda95d925288c60b3b00a7c65a7aaa32a519815fb61b76134e7484ddc5dd64ee369884
+x-api-key: 6edb89c59c1c6c7826b204003e952b33a152d208306e42089d68b3c29779d0934ec12c13650c881a8c081026045ba78d9e869f725fa44dee07f6332285c7e4ec
 
 {
   "name": "Hoang Nguyen",

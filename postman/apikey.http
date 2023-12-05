@@ -1,0 +1,9 @@
+@url_dev=http://localhost:8000/v1/api/customer
+
+### create apikey
+POST {{url_dev}}/apikey
+Content-Type: application/json
+
+{
+  "permissions": ["0000"]
+}
