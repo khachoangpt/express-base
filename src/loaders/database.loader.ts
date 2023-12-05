@@ -1,10 +1,11 @@
 import mongoose from 'mongoose'
-import path from 'path'
-import { DataSource, DataSourceOptions } from 'typeorm'
+import { DataSource } from 'typeorm'
 
 import { appConfig } from '@/configs/app-config'
 import { logger } from '@/configs/logger'
 import { DbTypeEnum, NodeEnvEnum } from '@/constants'
+
+export let dataSource: DataSource
 
 export default async () => {
   const type = appConfig.db.TYPE
@@ -15,7 +16,7 @@ export default async () => {
         await connectMongoDb()
         break
       case DbTypeEnum.POSTGRES:
-        await connectPostgres()
+        // dataSource = await connectPostgres()
         break
       default:
         break
@@ -25,30 +26,29 @@ export default async () => {
     logger.error(`Error Database Connect::`, error)
     process.exit(1)
   }
+}
 
-  // dev
+const connectMongoDb = async () => {
+  const connection = appConfig.db.DATABASE_CONNECTION
+  await mongoose.connect(connection)
+
   if (appConfig.NODE_ENV === NodeEnvEnum.DEVELOPMENT) {
     mongoose.set('debug', true)
     mongoose.set('debug', { color: true })
   }
 }
 
-const connectMongoDb = async () => {
-  const connection = appConfig.db.DATABASE_CONNECTION
-  await mongoose.connect(connection)
-}
+// const connectPostgres = async () => {
+//   const connection = appConfig.db.DATABASE_CONNECTION
 
-const connectPostgres = async () => {
-  const connection = appConfig.db.DATABASE_CONNECTION
+//   const dataSource = new DataSource({
+//     type: DbTypeEnum.POSTGRES,
+//     url: connection,
+//     schema: 'public',
+//     migrations: [path.join(__dirname, '..', 'migrations/*.{ts,js}')],
+//   } as DataSourceOptions)
 
-  const dataSource = new DataSource({
-    type: DbTypeEnum.POSTGRES,
-    url: connection,
-    schema: 'public',
-    migrations: [path.join(__dirname, '..', 'migrations/*.{ts,js}')],
-  } as DataSourceOptions)
+//   await dataSource.initialize()
 
-  await dataSource.initialize()
-
-  return dataSource
-}
+//   return dataSource
+// }

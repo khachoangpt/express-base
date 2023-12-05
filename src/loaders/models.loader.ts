@@ -7,7 +7,7 @@ export default async ({ container }: ModelLoaderParams) => {
   container.loadModules(
     [
       [
-        path.join(__dirname, '..', 'models/**/*.ts'),
+        path.join(__dirname, '..', 'models/**/*.{ts,js}'),
         {
           register: asClass,
           lifetime: Lifetime.SINGLETON,

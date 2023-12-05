@@ -12,3 +12,7 @@ export type ModelLoaderParams = {
 export type ServiceLoaderParams = {
   container: AwilixContainer
 }
+
+export type RepositoryLoaderParams = {
+  container: AwilixContainer
+}

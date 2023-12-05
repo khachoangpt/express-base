@@ -7,7 +7,7 @@ export default async ({ container }: ServiceLoaderParams) => {
   container.loadModules(
     [
       [
-        path.join(__dirname, '..', 'services/**/*.ts'),
+        path.join(__dirname, '..', 'services/**/*.{ts,js}'),
         {
           register: asClass,
           lifetime: Lifetime.SINGLETON,

@@ -2,7 +2,7 @@ import { Column, Entity } from 'typeorm'
 
 import { SoftDeletableModel } from '../soft-deletable'
 
-@Entity({ name: 'customers' })
+@Entity({ name: 'customer' })
 export default class Customer extends SoftDeletableModel {
   @Column({ type: 'varchar', nullable: false })
   first_name: string
