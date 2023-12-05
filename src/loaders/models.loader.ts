@@ -1,4 +1,4 @@
-import { asFunction, Lifetime } from 'awilix'
+import { asClass, Lifetime } from 'awilix'
 import path from 'path'
 
 import { ModelLoaderParams } from '@/types'
@@ -9,7 +9,7 @@ export default async ({ container }: ModelLoaderParams) => {
       [
         path.join(__dirname, '..', 'models/**/*.ts'),
         {
-          register: asFunction,
+          register: asClass,
           lifetime: Lifetime.SINGLETON,
         },
       ],
@@ -18,7 +18,7 @@ export default async ({ container }: ModelLoaderParams) => {
       formatName: 'camelCase',
       resolverOptions: {
         lifetime: Lifetime.SINGLETON,
-        register: asFunction,
+        register: asClass,
       },
     },
   )
