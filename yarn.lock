@@ -509,6 +509,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/bcrypt@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@types/bcrypt@npm:5.0.2"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: dd7f05e183b9b1fc08ec499069febf197ab8e9c720766b5bbb5628395082e248f9a444c60882fe7788361fcadc302e21e055ab9c26a300f100e08791c353e6aa
+  languageName: node
+  linkType: hard
+
 "@types/body-parser@npm:*":
   version: 1.19.5
   resolution: "@types/body-parser@npm:1.19.5"
@@ -1346,10 +1355,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bson@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "bson@npm:6.2.0"
-  checksum: 90f447dbafc97cf84cadcb75fa0fe1eecdcb396492ce3d47b1fbf2e6e2ce88bfcf92d62e491e1a70c2fc4a1bf7825d6ce53ba75ed3359c772c41b93ff84db410
+"bson@npm:^5.5.0":
+  version: 5.5.1
+  resolution: "bson@npm:5.5.1"
+  checksum: 00fabdafe98d20609bd76f607cada03ec544b90225103f7ae859fba7674bd96cae56432b0516e30291af0c40634d306f8a45b63b706a034e95fe583c749ef5b3
   languageName: node
   linkType: hard
 
@@ -2537,6 +2546,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:^18.4.3"
     "@commitlint/config-conventional": "npm:^18.4.3"
+    "@types/bcrypt": "npm:^5.0.2"
     "@types/compression": "npm:^1.7.5"
     "@types/cors": "npm:^2.8.17"
     "@types/eslint": "npm:^8"
@@ -2564,9 +2574,8 @@ __metadata:
     jsonwebtoken: "npm:^9.0.2"
     lint-staged: "npm:^15.2.0"
     lodash: "npm:^4.17.21"
-    mongoose: "npm:^8.0.2"
+    mongoose: "npm:^7.6.5"
     morgan: "npm:^1.10.0"
-    os: "npm:^0.1.2"
     pg: "npm:^8.11.3"
     prettier: "npm:^3.1.0"
     rimraf: "npm:^5.0.5"
@@ -4448,27 +4457,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mongodb@npm:6.2.0":
-  version: 6.2.0
-  resolution: "mongodb@npm:6.2.0"
+"mongodb@npm:5.9.1":
+  version: 5.9.1
+  resolution: "mongodb@npm:5.9.1"
   dependencies:
     "@mongodb-js/saslprep": "npm:^1.1.0"
-    bson: "npm:^6.2.0"
+    bson: "npm:^5.5.0"
     mongodb-connection-string-url: "npm:^2.6.0"
+    socks: "npm:^2.7.1"
   peerDependencies:
     "@aws-sdk/credential-providers": ^3.188.0
-    "@mongodb-js/zstd": ^1.1.0
-    gcp-metadata: ^5.2.0
-    kerberos: ^2.0.1
-    mongodb-client-encryption: ">=6.0.0 <7"
+    "@mongodb-js/zstd": ^1.0.0
+    kerberos: ^1.0.0 || ^2.0.0
+    mongodb-client-encryption: ">=2.3.0 <3"
     snappy: ^7.2.2
-    socks: ^2.7.1
+  dependenciesMeta:
+    "@mongodb-js/saslprep":
+      optional: true
   peerDependenciesMeta:
     "@aws-sdk/credential-providers":
       optional: true
     "@mongodb-js/zstd":
-      optional: true
-    gcp-metadata:
       optional: true
     kerberos:
       optional: true
@@ -4476,24 +4485,22 @@ __metadata:
       optional: true
     snappy:
       optional: true
-    socks:
-      optional: true
-  checksum: aa806b7a01989310d1a713f0f3b409af98a9e8d374391d6d4319053a9e5cf982411e7b8514394eb33919d5f0305daee010720e0fc7259686edac038530e86662
+  checksum: a77a661d5b2042f693d7c0a33c07dc1758a7a5b176000cd82ffb0282e93421abd6f9deb3130770c8fed276de3c1707355ead0673f2611439e3f620849c10d869
   languageName: node
   linkType: hard
 
-"mongoose@npm:^8.0.2":
-  version: 8.0.2
-  resolution: "mongoose@npm:8.0.2"
+"mongoose@npm:^7.6.5":
+  version: 7.6.6
+  resolution: "mongoose@npm:7.6.6"
   dependencies:
-    bson: "npm:^6.2.0"
+    bson: "npm:^5.5.0"
     kareem: "npm:2.5.1"
-    mongodb: "npm:6.2.0"
+    mongodb: "npm:5.9.1"
     mpath: "npm:0.9.0"
     mquery: "npm:5.0.0"
     ms: "npm:2.1.3"
     sift: "npm:16.0.1"
-  checksum: 2147273d6e067fcda2a0e0ceb0c4c3cfd663deadbfe094e2616503387cceb21c49d31255c1b79e15db169c7fbddfaf295f181b93efc875b81bdcc6c931323676
+  checksum: 6f46e7b5a771c69509c470328f4ad08de137a42ece3f159710dab946135e7bcba0888a4783c1bc635656063944b2e409391135da1c660905a7f0b79cb5e64426
   languageName: node
   linkType: hard
 
@@ -4880,13 +4887,6 @@ __metadata:
     prelude-ls: "npm:^1.2.1"
     type-check: "npm:^0.4.0"
   checksum: 66fba794d425b5be51353035cf3167ce6cfa049059cbb93229b819167687e0f48d2bc4603fcb21b091c99acb516aae1083624675b15c4765b2e4693a085e959c
-  languageName: node
-  linkType: hard
-
-"os@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "os@npm:0.1.2"
-  checksum: 90f0db78a19a43cd26bc7497640eaee566043209e93d7e99570f542370f55d7107487f0bffdff01666b6ba48c88b6da8a6ed3811d745b57de93ab1cf7d3591a4
   languageName: node
   linkType: hard
 

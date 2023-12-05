@@ -30,8 +30,7 @@ export default async () => {
 
 const connectMongoDb = async () => {
   const connection = appConfig.db.DATABASE_CONNECTION
-  await mongoose.connect(connection)
-
+  await mongoose.connect(connection, { maxPoolSize: 100 })
   if (appConfig.NODE_ENV === NodeEnvEnum.DEVELOPMENT) {
     mongoose.set('debug', true)
     mongoose.set('debug', { color: true })

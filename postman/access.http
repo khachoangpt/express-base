@@ -1,0 +1,12 @@
+@url_dev=http://localhost:8000/v1/api/customer
+
+### signup
+POST {{url_dev}}/signup
+Content-Type: application/json
+x-api-key: 1441e5463d7e0fcf6f61b6b487377616c144c9d5209d76483ea5cfa7faeda95d925288c60b3b00a7c65a7aaa32a519815fb61b76134e7484ddc5dd64ee369884
+
+{
+  "name": "Hoang Nguyen",
+  "email": "hoangncd13@gmail.com",
+  "password": "1234567@"
+}
