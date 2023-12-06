@@ -33,7 +33,7 @@ export const generateAdminOas = async () => {
   const isValidOas = await validateOAS(openapiSpecification)
   if (isValidOas) {
     fs.writeFileSync(
-      './client-sdk/spec.json',
+      './client-sdk/spec.admin.json',
       JSON.stringify(openapiSpecification, null, 2),
     )
     logger.info('⚫️ Exported Admin OAS')
@@ -46,7 +46,7 @@ export const generateCustomerOas = async () => {
   const isValidOas = await validateOAS(openapiSpecification)
   if (isValidOas) {
     fs.writeFileSync(
-      './client-sdk/spec.json',
+      './client-sdk/spec.customer.json',
       JSON.stringify(openapiSpecification, null, 2),
     )
     logger.info('⚫️ Exported Customer OAS')

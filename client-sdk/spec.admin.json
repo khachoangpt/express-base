@@ -1,0 +1,44 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Shop",
+    "version": "1.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Shop": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of shop",
+            "example": "shop001"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of shop",
+            "example": "shop@gmail.com"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of shop",
+            "enum": ["active", "inactive"]
+          },
+          "verify": {
+            "type": "boolean",
+            "description": "Is shop verified"
+          },
+          "roles": {
+            "type": "array",
+            "description": "List of roles",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}
