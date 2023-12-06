@@ -3,7 +3,8 @@ import crypto from 'crypto'
 
 import { RolesEnum } from '@/constants'
 import { SignUpParams } from '@/controllers/customers/signup/signup.schema.controller'
-import shopModel from '@/models/shop/shop.model'
+import { ConflictRequestError, NotFoundError } from '@/core/error.response'
+import shopModel, { Shop } from '@/models/shop/shop.model'
 import { createTokenPair } from '@/utils/create-token-pair'
 
 import TokenService from '../token/token.service'
@@ -20,63 +21,54 @@ export default class AccessService {
   }
 
   async signUp({ email, name, password }: SignUpParams) {
-    try {
-      // check email exist
-      const holderShop = await shopModel.findOne({ email }).lean()
-      if (holderShop) {
-        return {
-          code: 'xxx',
-          message: 'Shop already exist',
-          status: 'error',
-        }
-      }
+    // check email exist
+    const holderShop = await shopModel.findOne({ email }).lean()
+    if (holderShop) {
+      throw new ConflictRequestError('Shop already exist')
+    }
 
-      const passwordHash = await bcrypt.hash(password, 10)
+    const passwordHash = await bcrypt.hash(password, 10)
+    const newShop: Shop = await shopModel.create({
+      name,
+      email,
+      password: passwordHash,
+      roles: [RolesEnum.SHOP],
+    })
 
-      const newShop = await shopModel.create({
-        name,
-        email,
-        password: passwordHash,
-        roles: [RolesEnum.SHOP],
-      })
+    if (!newShop) {
+      throw new NotFoundError('Can not create shop')
+    }
 
-      if (newShop) {
-        // create privateKey, publicKey
-        const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
-          modulusLength: 4096,
-          publicKeyEncoding: {
-            type: 'pkcs1',
-            format: 'pem',
-          },
-          privateKeyEncoding: {
-            type: 'pkcs1',
-            format: 'pem',
-          },
-        })
+    // create privateKey, publicKey
+    const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
+      modulusLength: 4096,
+      publicKeyEncoding: {
+        type: 'pkcs1',
+        format: 'pem',
+      },
+      privateKeyEncoding: {
+        type: 'pkcs1',
+        format: 'pem',
+      },
+    })
 
-        const tokensCreated = await this.tokenService.createToken({
-          userId: newShop._id,
-          publicKey,
-        })
+    const tokensCreated = await this.tokenService.createToken({
+      userId: newShop._id,
+      publicKey,
+    })
 
-        if (!tokensCreated) {
-          return {
-            code: 'xxx',
-            message: 'Create Tokens Error',
-            status: 'error',
-          }
-        }
+    if (!tokensCreated) {
+      throw new Error('Create Tokens Error')
+    }
 
-        const tokens = await createTokenPair({
-          payload: { email: newShop.email, userId: newShop._id },
-          privateKey,
-        })
+    const tokens = await createTokenPair({
+      payload: { email: newShop.email, userId: newShop._id },
+      privateKey,
+    })
 
-        return {
-          shop: newShop,
-          tokens,
-        }
-      }
-    } catch (error) {}
+    return {
+      shop: newShop,
+      tokens,
+    }
   }
 }

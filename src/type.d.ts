@@ -9,4 +9,8 @@ declare global {
       objKey: IApiKey
     }
   }
+
+  interface Error {
+    status: number
+  }
 }

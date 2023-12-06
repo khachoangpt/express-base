@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose'
+import { InferSchemaType, model, Schema, Types } from 'mongoose'
 
 import { ShopStatusEnum } from '@/constants'
 
@@ -42,4 +42,8 @@ const shopSchema = new Schema(
   },
 )
 
-export default model(DOCUMENT_NAME, shopSchema)
+export type Shop = InferSchemaType<typeof shopSchema> & {
+  _id: Types.ObjectId
+}
+
+export default model<Shop>(DOCUMENT_NAME, shopSchema)
