@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 
 import { RolesEnum } from '@/constants'
-import { SignUpParams } from '@/controllers/customers/signup/signup.schema.controller'
+import { SignUpParams } from '@/controllers/customers/signup/signup.schema'
 import { ConflictRequestError, NotFoundError } from '@/core/error.response'
 import shopModel, { Shop } from '@/models/shop/shop.model'
 import { createTokenPair } from '@/utils/create-token-pair'
