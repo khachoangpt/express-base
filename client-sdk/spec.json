@@ -1,0 +1,106 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Shop",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/signup": {
+      "post": {
+        "summary": "Sign up",
+        "description": "Sign up",
+        "tags": ["Shop"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "A shop",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignUpDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SignUpDTO": {
+        "type": "object",
+        "properties": {
+          "shop": {
+            "$ref": "#/components/schemas/Shop"
+          },
+          "token": {
+            "type": "object",
+            "properties": {
+              "accessToken": {
+                "type": "string"
+              },
+              "refreshToken": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "SignUpParams": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Shop": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of shop",
+            "example": "shop001"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of shop",
+            "example": "shop@gmail.com"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of shop",
+            "enum": ["active", "inactive"]
+          },
+          "verify": {
+            "type": "boolean",
+            "description": "Is shop verified"
+          },
+          "roles": {
+            "type": "array",
+            "description": "List of roles",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

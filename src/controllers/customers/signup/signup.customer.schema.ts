@@ -17,3 +17,18 @@ export const SignUpSchema = z.object({
 })
 
 export type SignUpParams = z.infer<typeof SignUpSchema>
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     SignUpParams:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         password:
+ *           type: string
+ */

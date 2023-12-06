@@ -47,3 +47,34 @@ export type Shop = InferSchemaType<typeof shopSchema> & {
 }
 
 export default model<Shop>(DOCUMENT_NAME, shopSchema)
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Shop:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: Name of shop
+ *           example: shop001
+ *         email:
+ *           type: string
+ *           description: Email of shop
+ *           example: shop@gmail.com
+ *         status:
+ *           type: string
+ *           description: Status of shop
+ *           enum:
+ *             - active
+ *             - inactive
+ *         verify:
+ *           type: boolean
+ *           description: Is shop verified
+ *         roles:
+ *           type: array
+ *           description: List of roles
+ *           items:
+ *             type: string
+ */
