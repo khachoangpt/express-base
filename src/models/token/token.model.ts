@@ -14,9 +14,13 @@ const tokenSchema = new Schema(
       type: Schema.Types.String,
       required: true,
     },
-    refreshToken: {
+    refreshTokenUsed: {
       type: Schema.Types.Array,
       default: [],
+    },
+    refreshToken: {
+      type: Schema.Types.String,
+      required: true,
     },
   },
   {

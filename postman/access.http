@@ -11,3 +11,13 @@ x-api-key: {{api_key}}
   "email": "hoangncd13@gmail.com",
   "password": "1234567@"
 }
+
+### login
+POST {{url_dev}}/login
+Content-Type: application/json
+x-api-key: {{api_key}}
+
+{
+  "email": "hoangncd13@gmail.com",
+  "password": "1234567@"
+}
