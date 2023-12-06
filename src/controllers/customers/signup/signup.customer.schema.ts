@@ -16,8 +16,6 @@ export const SignUpSchema = z.object({
     .min(1, 'Password can not be empty'),
 })
 
-export type SignUpParams = z.infer<typeof SignUpSchema>
-
 /**
  * @swagger
  * components:
@@ -32,3 +30,4 @@ export type SignUpParams = z.infer<typeof SignUpSchema>
  *         password:
  *           type: string
  */
+export type SignUpParams = z.infer<typeof SignUpSchema>

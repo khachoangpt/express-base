@@ -4,11 +4,27 @@
     "title": "Shop",
     "version": "1.0.0"
   },
+  "servers": [
+    {
+      "url": "http://localhost:8000/v1/api",
+      "description": "Development server"
+    }
+  ],
   "paths": {
-    "/signup": {
+    "/customer/signup": {
       "post": {
         "summary": "Sign up",
-        "description": "Sign up",
+        "description": "Customer sign up",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
         "tags": ["Shop"],
         "requestBody": {
           "content": {

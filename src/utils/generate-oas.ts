@@ -12,6 +12,12 @@ const adminOptions: swaggerJSDoc.Options = {
       title: 'Shop',
       version: '1.0.0',
     },
+    servers: [
+      {
+        url: 'http://localhost:8000/v1/api',
+        description: 'Development server',
+      },
+    ],
   },
   apis: ['./src/controllers/admin/**/*.ts', './src/models/**/*.ts'],
 }
@@ -23,6 +29,12 @@ const customerOptions: swaggerJSDoc.Options = {
       title: 'Shop',
       version: '1.0.0',
     },
+    servers: [
+      {
+        url: 'http://localhost:8000/v1/api',
+        description: 'Development server',
+      },
+    ],
   },
   apis: ['./src/controllers/customers/**/*.ts', './src/models/**/*.ts'],
 }
@@ -30,25 +42,21 @@ const customerOptions: swaggerJSDoc.Options = {
 export const generateAdminOas = async () => {
   logger.info('🟣 Generating Admin OAS')
   const openapiSpecification = swaggerJSDoc(adminOptions)
-  const isValidOas = await validateOAS(openapiSpecification)
-  if (isValidOas) {
-    fs.writeFileSync(
-      './client-sdk/spec.admin.json',
-      JSON.stringify(openapiSpecification, null, 2),
-    )
-    logger.info('⚫️ Exported Admin OAS')
-  }
+  await validateOAS(openapiSpecification, 'Admin')
+  fs.writeFileSync(
+    './client-sdk/spec.admin.json',
+    JSON.stringify(openapiSpecification, null, 2),
+  )
+  logger.info('⚫️ Exported Admin OAS')
 }
 
 export const generateCustomerOas = async () => {
   logger.info('🟣 Generating Customer OAS')
   const openapiSpecification = swaggerJSDoc(customerOptions)
-  const isValidOas = await validateOAS(openapiSpecification)
-  if (isValidOas) {
-    fs.writeFileSync(
-      './client-sdk/spec.customer.json',
-      JSON.stringify(openapiSpecification, null, 2),
-    )
-    logger.info('⚫️ Exported Customer OAS')
-  }
+  await validateOAS(openapiSpecification, 'Customer')
+  fs.writeFileSync(
+    './client-sdk/spec.customer.json',
+    JSON.stringify(openapiSpecification, null, 2),
+  )
+  logger.info('⚫️ Exported Customer OAS')
 }

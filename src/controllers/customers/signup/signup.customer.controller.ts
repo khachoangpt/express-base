@@ -8,10 +8,16 @@ import { SignUpParams, SignUpSchema } from './signup.customer.schema'
 
 /**
  * @swagger
- * /signup:
+ * /customer/signup:
  *   post:
  *     summary: Sign up
- *     description: Sign up
+ *     description: Customer sign up
+ *     parameters:
+ *       - in: header
+ *         name: x-api-key
+ *         schema:
+ *           type: string
+ *         required: true
  *     tags:
  *       - Shop
  *     requestBody:
