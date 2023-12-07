@@ -1,10 +1,13 @@
 import express, { Express } from 'express'
 import swaggerUI from 'swagger-ui-express'
 
-import { PERMISSION } from '@/constants'
+import { appConfig } from '@/configs/app-config'
+import { NodeEnvEnum, PERMISSION } from '@/constants'
 import { apiKey, permissions } from '@/utils/check-auth'
 import handleError from '@/utils/handle-error'
+import { useSchema } from '@/utils/use-schema'
 
+import specAdmin from '../../client-sdk/spec.admin.json'
 import specCustomer from '../../client-sdk/spec.customer.json'
 import adminRoutes from './admin'
 import customerRoutes from './customer'
@@ -12,7 +15,10 @@ import customerRoutes from './customer'
 export default (app: Express) => {
   const router = express.Router()
 
-  app.use('/docs', swaggerUI.serve, swaggerUI.setup(specCustomer))
+  if (appConfig.NODE_ENV === NodeEnvEnum.DEVELOPMENT) {
+    app.use('/docs', swaggerUI.serve, useSchema(specCustomer))
+    app.use('/docs-admin', swaggerUI.serve, useSchema(specAdmin))
+  }
 
   // check api
   router.use(apiKey)

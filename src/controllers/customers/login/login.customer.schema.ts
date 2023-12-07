@@ -12,4 +12,16 @@ export const LoginSchema = z.object({
     .min(1, 'Password can not be empty'),
 })
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     LoginParams:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *         password:
+ *           type: string
+ */
 export type LoginParams = z.infer<typeof LoginSchema>

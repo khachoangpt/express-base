@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Shop",
+    "title": "Shop Customer",
     "version": "1.0.0"
   },
   "servers": [
@@ -11,6 +11,44 @@
     }
   ],
   "paths": {
+    "/customer/login": {
+      "post": {
+        "summary": "Login",
+        "description": "Customer login",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": ["Shop"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A shop",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/customer/signup": {
       "post": {
         "summary": "Sign up",
@@ -52,6 +90,36 @@
   },
   "components": {
     "schemas": {
+      "LoginDTO": {
+        "type": "object",
+        "properties": {
+          "shop": {
+            "$ref": "#/components/schemas/Shop"
+          },
+          "token": {
+            "type": "object",
+            "properties": {
+              "accessToken": {
+                "type": "string"
+              },
+              "refreshToken": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "LoginParams": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
       "SignUpDTO": {
         "type": "object",
         "properties": {

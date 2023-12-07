@@ -9,7 +9,7 @@ const adminOptions: swaggerJSDoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Shop',
+      title: 'Shop Admin',
       version: '1.0.0',
     },
     servers: [
@@ -26,7 +26,7 @@ const customerOptions: swaggerJSDoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Shop',
+      title: 'Shop Customer',
       version: '1.0.0',
     },
     servers: [

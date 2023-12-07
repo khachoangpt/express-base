@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 
 import statusCodes from '@/constants/http-status-code/status-codes'
 import { validator } from '@/middleware/validate'
+import { Shop } from '@/models/shop/shop.model'
 import AccessService from '@/services/access/access.service'
 
 import { SignUpParams, SignUpSchema } from './signup.customer.schema'
@@ -58,3 +59,10 @@ export default async (req: Request, res: Response) => {
  *             refreshToken:
  *               type: string
  */
+export type SignUpDTO = {
+  shop: Shop
+  tokens: {
+    accessToken: string
+    refreshToken: string
+  }
+}

@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt'
-import crypto from 'crypto'
 
 import { RolesEnum } from '@/constants'
+import { LoginDTO } from '@/controllers/customers/login/login.customer.controller'
 import { LoginParams } from '@/controllers/customers/login/login.customer.schema'
+import { SignUpDTO } from '@/controllers/customers/signup/signup.customer.controller'
 import { SignUpParams } from '@/controllers/customers/signup/signup.customer.schema'
 import {
   BadRequestError,
@@ -12,6 +13,7 @@ import {
 } from '@/core/error.response'
 import shopModel, { Shop } from '@/models/shop/shop.model'
 import { createTokenPair } from '@/utils/create-token-pair'
+import { generateKeyPair } from '@/utils/generate-key-pair'
 
 import ShopService from '../shop/shop.service'
 import TokenService from '../token/token.service'
@@ -30,7 +32,7 @@ export default class AccessService {
     this.shopService = container.shopService
   }
 
-  async signUp({ email, name, password }: SignUpParams) {
+  async signUp({ email, name, password }: SignUpParams): Promise<SignUpDTO> {
     // check email exist
     const holderShop = await shopModel.findOne({ email }).lean()
     if (holderShop) {
@@ -50,31 +52,22 @@ export default class AccessService {
     }
 
     // create privateKey, publicKey
-    const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
-      modulusLength: 4096,
-      publicKeyEncoding: {
-        type: 'pkcs1',
-        format: 'pem',
-      },
-      privateKeyEncoding: {
-        type: 'pkcs1',
-        format: 'pem',
-      },
-    })
-
-    const tokensCreated = await this.tokenService.createToken({
-      userId: newShop._id,
-      publicKey,
-    })
-
-    if (!tokensCreated) {
-      throw new Error('Create Tokens Error')
-    }
+    const { privateKey, publicKey } = generateKeyPair()
 
     const tokens = await createTokenPair({
       payload: { email: newShop.email, userId: newShop._id },
       privateKey,
     })
+
+    const tokensCreated = await this.tokenService.createToken({
+      userId: newShop._id,
+      publicKey,
+      refreshToken: tokens.refreshToken,
+    })
+
+    if (!tokensCreated) {
+      throw new Error('Create Tokens Error')
+    }
 
     return {
       shop: newShop,
@@ -82,7 +75,7 @@ export default class AccessService {
     }
   }
 
-  async login({ email, password }: LoginParams) {
+  async login({ email, password }: LoginParams): Promise<LoginDTO> {
     // check email in database
     const foundShop = await this.shopService.findByEmail(email)
     if (!foundShop) {
@@ -95,19 +88,8 @@ export default class AccessService {
       throw new UnauthorizedError('Authentication error')
     }
 
-    // create AT and RT
     // create privateKey, publicKey
-    const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
-      modulusLength: 4096,
-      publicKeyEncoding: {
-        type: 'pkcs1',
-        format: 'pem',
-      },
-      privateKeyEncoding: {
-        type: 'pkcs1',
-        format: 'pem',
-      },
-    })
+    const { privateKey, publicKey } = generateKeyPair()
 
     // generate token
     const tokens = await createTokenPair({
