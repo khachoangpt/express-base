@@ -37,6 +37,26 @@ class TokenService {
     const tokenRemove = await tokenModel.findByIdAndRemove(id, { lean: true })
     return tokenRemove
   }
+
+  async findByRefreshTokenUsed(refreshToken: string) {
+    const tokenFind = await tokenModel
+      .findOne({
+        refreshTokenUsed: refreshToken,
+      })
+      .lean()
+    return tokenFind
+  }
+
+  async findByRefreshToken(refreshToken: string) {
+    const tokenFind = await tokenModel.findOne({ refreshToken }).lean()
+    return tokenFind
+  }
+
+  async removeByUser(userId: string) {
+    const tokenRemove = await tokenModel.findOneAndDelete({ user: userId })
+
+    return tokenRemove
+  }
 }
 
 export default TokenService

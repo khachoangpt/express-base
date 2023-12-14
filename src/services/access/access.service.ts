@@ -1,8 +1,10 @@
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 import { RolesEnum } from '@/constants'
 import { LoginDTO } from '@/controllers/customers/login/login.customer.controller'
 import { LoginParams } from '@/controllers/customers/login/login.customer.schema'
+import { RefreshTokenParams } from '@/controllers/customers/refresh-token/refresh-token.customer.schema'
 import { SignUpDTO } from '@/controllers/customers/signup/signup.customer.controller'
 import { SignUpParams } from '@/controllers/customers/signup/signup.customer.schema'
 import {
@@ -12,7 +14,8 @@ import {
   UnauthorizedError,
 } from '@/core/error.response'
 import shopModel, { Shop } from '@/models/shop/shop.model'
-import { Token } from '@/models/token/token.model'
+import tokenModel, { Token } from '@/models/token/token.model'
+import { PayLoad } from '@/types'
 import { createTokenPair } from '@/utils/create-token-pair'
 import { generateKeyPair } from '@/utils/generate-key-pair'
 
@@ -114,5 +117,44 @@ export default class AccessService {
   async logout(token: Token) {
     const tokenRemove = await this.tokenService.removeTokenById(token._id)
     return tokenRemove
+  }
+
+  async handleRefreshToken({ refreshToken }: RefreshTokenParams) {
+    // check token already used
+    const tokenFind =
+      await this.tokenService.findByRefreshTokenUsed(refreshToken)
+
+    if (tokenFind) {
+      await this.tokenService.removeByUser(tokenFind.user.toString())
+      throw new UnauthorizedError('Something wrong.')
+    }
+
+    const tokenFound = await this.tokenService.findByRefreshToken(refreshToken)
+
+    if (!tokenFound) {
+      throw new NotFoundError('Token Not Found')
+    }
+    const payload = jwt.verify(refreshToken, tokenFound.publicKey) as PayLoad
+    const shopFound = await this.shopService.findByEmail(payload?.email)
+    if (!shopFound) {
+      throw new NotFoundError('Shop Not Found')
+    }
+    const { privateKey, publicKey } = generateKeyPair()
+    const tokens = await createTokenPair({
+      payload: { email: payload.email, userId: payload.userId },
+      privateKey,
+    })
+
+    await this.tokenService.createToken({
+      userId: shopFound._id,
+      publicKey,
+      refreshToken: tokens.refreshToken,
+    })
+
+    await tokenModel.findOneAndUpdate(
+      { user: shopFound._id },
+      { $addToSet: { refreshTokenUsed: refreshToken } },
+    )
+    return tokens
   }
 }

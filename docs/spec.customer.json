@@ -164,6 +164,14 @@
           }
         }
       },
+      "RefreshTokenParams": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
       "SignUpDTO": {
         "type": "object",
         "properties": {
