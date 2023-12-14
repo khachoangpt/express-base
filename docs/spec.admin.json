@@ -29,7 +29,10 @@
           "status": {
             "type": "string",
             "description": "Status of shop",
-            "enum": ["active", "inactive"]
+            "enum": [
+              "active",
+              "inactive"
+            ]
           },
           "verify": {
             "type": "boolean",

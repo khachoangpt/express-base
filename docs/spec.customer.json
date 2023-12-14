@@ -25,7 +25,9 @@
             "required": true
           }
         ],
-        "tags": ["Shop"],
+        "tags": [
+          "Shop"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -71,7 +73,9 @@
             "required": true
           }
         ],
-        "tags": ["Shop"],
+        "tags": [
+          "Shop"
+        ],
         "responses": {
           "200": {
             "description": "A shop",
@@ -101,7 +105,9 @@
             "required": true
           }
         ],
-        "tags": ["Shop"],
+        "tags": [
+          "Shop"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -207,7 +213,10 @@
           "status": {
             "type": "string",
             "description": "Status of shop",
-            "enum": ["active", "inactive"]
+            "enum": [
+              "active",
+              "inactive"
+            ]
           },
           "verify": {
             "type": "boolean",
