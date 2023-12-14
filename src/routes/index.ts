@@ -7,8 +7,8 @@ import { apiKey, permissions } from '@/utils/check-auth'
 import handleError from '@/utils/handle-error'
 import { useSchema } from '@/utils/use-schema'
 
-import specAdmin from '../../client-sdk/spec.admin.json'
-import specCustomer from '../../client-sdk/spec.customer.json'
+import specAdmin from '../../docs/spec.admin.json'
+import specCustomer from '../../docs/spec.customer.json'
 import adminRoutes from './admin'
 import customerRoutes from './customer'
 

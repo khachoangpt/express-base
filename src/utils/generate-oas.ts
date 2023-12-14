@@ -44,7 +44,7 @@ export const generateAdminOas = async () => {
   const openapiSpecification = swaggerJSDoc(adminOptions)
   await validateOAS(openapiSpecification, 'Admin')
   fs.writeFileSync(
-    './client-sdk/spec.admin.json',
+    './docs/spec.admin.json',
     JSON.stringify(openapiSpecification, null, 2),
   )
   logger.info('⚫️ Exported Admin OAS')
@@ -55,7 +55,7 @@ export const generateCustomerOas = async () => {
   const openapiSpecification = swaggerJSDoc(customerOptions)
   await validateOAS(openapiSpecification, 'Customer')
   fs.writeFileSync(
-    './client-sdk/spec.customer.json',
+    './docs/spec.customer.json',
     JSON.stringify(openapiSpecification, null, 2),
   )
   logger.info('⚫️ Exported Customer OAS')
