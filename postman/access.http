@@ -1,5 +1,6 @@
 @url_dev=http://localhost:8000/v1/api/customer
 @api_key=1441e5463d7e0fcf6f61b6b487377616c144c9d5209d76483ea5cfa7faeda95d925288c60b3b00a7c65a7aaa32a519815fb61b76134e7484ddc5dd64ee369884
+@accessToken=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvYW5nbmNkMTNAZ21haWwuY29tIiwidXNlcklkIjoiNjU2ZWYwM2QwYTFlMTNiNGNlYTZiODVmIiwiaWF0IjoxNzAyNTQ1MjA4LCJleHAiOjE3MDI3MTgwMDh9.JwWD48cYqj3fQkRsmDH-HoDFmDdluBtmUkx4Hwy3FndN_bpa53uSu2pFyvQGDpXrisBitrA-4g6k6dwh_GKyB0r7vYJCEgXt9VQplP3SfYM0NTX2dkBE1yF1vsA7lTjEjHCZ8I-1l_BC1C8dH9zwxWxeyFo7qJX_TIRgEjEZw9KV5yjPH0d0Lfx2-_rcQf1I56rIPgsn06SQkrJXtPQA0uMkkBbTlNR6MuYu66nGJtL4BgnJ63IDtMKJW5ZUV-v7elt31tWqjBQTD9BDdP0UKOgSo1w9NYZSKogo9WNcZq5yw4faxSmLicGVaUt1Eo0PwvFrYAAXfKTJtv25D9P1rtvgsbONb6dxJwobdKe99VejcBLfAqIndsHvmEhIrbkaMnu2SFhrikfJD3nieCxGaj5R2VGsvs90OF3zOMCvnpl_GG950Lvd7eYQuvD0cNtyAD52emeR88eEU0z0XDUW3OGVYYlIBvbFDWnee_ahY9-1zasxwR4SDR2qtZxFL15zpb3bwpwMohR6MR5jFj_kxA1RhTg2R0YK4kLjwoArplgGz1RCiB3RVBXXaUQAJfvaorz80j3gG0hTK1zqDdsuIGDmjBWc8RsOH03jCXe1l_8XnBulnrcsiODlTANICmKuCkQpOdxzGcOAcXeONOApwy_8EExsTnPGB7VB_kf66Iw
 
 ### signup
 POST {{url_dev}}/signup
@@ -21,3 +22,10 @@ x-api-key: {{api_key}}
   "email": "hoangncd13@gmail.com",
   "password": "1234567@"
 }
+
+### logout
+POST {{url_dev}}/logout
+Content-Type: application/json
+x-api-key: {{api_key}}
+Authorization: {{accessToken}}
+x-client-id: 656ef03d0a1e13b4cea6b85f

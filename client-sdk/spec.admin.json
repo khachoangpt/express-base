@@ -43,6 +43,33 @@
             }
           }
         }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string",
+            "description": "User id",
+            "example": "cjc7c3ur4"
+          },
+          "publicKey": {
+            "type": "string",
+            "description": "public key",
+            "example": "public_key"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "refresh token",
+            "example": "refresh_token"
+          },
+          "refreshTokenUsed": {
+            "type": "array",
+            "description": "List of refresh token used",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
       }
     }
   },

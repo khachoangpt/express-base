@@ -49,6 +49,44 @@
         }
       }
     },
+    "/customer/logout": {
+      "post": {
+        "summary": "Logout",
+        "description": "Customer logout",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": ["Shop"],
+        "responses": {
+          "200": {
+            "description": "A shop",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Success"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/customer/signup": {
       "post": {
         "summary": "Sign up",
@@ -178,6 +216,33 @@
           "roles": {
             "type": "array",
             "description": "List of roles",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string",
+            "description": "User id",
+            "example": "cjc7c3ur4"
+          },
+          "publicKey": {
+            "type": "string",
+            "description": "public key",
+            "example": "public_key"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "refresh token",
+            "example": "refresh_token"
+          },
+          "refreshTokenUsed": {
+            "type": "array",
+            "description": "List of refresh token used",
             "items": {
               "type": "string"
             }

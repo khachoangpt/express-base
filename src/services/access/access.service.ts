@@ -12,6 +12,7 @@ import {
   UnauthorizedError,
 } from '@/core/error.response'
 import shopModel, { Shop } from '@/models/shop/shop.model'
+import { Token } from '@/models/token/token.model'
 import { createTokenPair } from '@/utils/create-token-pair'
 import { generateKeyPair } from '@/utils/generate-key-pair'
 
@@ -55,7 +56,7 @@ export default class AccessService {
     const { privateKey, publicKey } = generateKeyPair()
 
     const tokens = await createTokenPair({
-      payload: { email: newShop.email, userId: newShop._id },
+      payload: { email: newShop.email, userId: newShop._id.toString() },
       privateKey,
     })
 
@@ -93,7 +94,7 @@ export default class AccessService {
 
     // generate token
     const tokens = await createTokenPair({
-      payload: { email: foundShop.email, userId: foundShop._id },
+      payload: { email: foundShop.email, userId: foundShop._id.toString() },
       privateKey,
     })
 
@@ -108,5 +109,10 @@ export default class AccessService {
     }
 
     return { shop: foundShop, tokens }
+  }
+
+  async logout(token: Token) {
+    const tokenRemove = await this.tokenService.removeTokenById(token._id)
+    return tokenRemove
   }
 }

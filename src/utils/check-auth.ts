@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
+import { Types } from 'mongoose'
 
-import { PERMISSION } from '@/constants'
+import { HEADER, PERMISSION } from '@/constants'
+import { NotFoundError, UnauthorizedError } from '@/core/error.response'
 import ApikeyService from '@/services/apikey/apikey.service'
-
-const HEADER = {
-  API_KEY: 'x-api-key',
-  AUTHORIZATION: 'Authorization',
-}
+import TokenService from '@/services/token/token.service'
+import { PayLoad } from '@/types'
 
 export const apiKey = async (
   req: Request,
@@ -55,3 +55,34 @@ export const asyncHandler = (
     fn(req, res, next).catch(next)
   }
 }
+
+export const authentication = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // check userId missing
+    const userId = req.headers[HEADER.CLIENT_ID] as string
+    if (!userId) {
+      throw new UnauthorizedError('Header is missing some properties')
+    }
+
+    // check token with userId
+    const tokenService: TokenService = req.scope.resolve('tokenService')
+    const tokenFind = await tokenService.findByUserId(
+      new Types.ObjectId(userId),
+    )
+
+    // get access token
+    const accessToken = req.headers[HEADER.AUTHORIZATION] as string
+
+    if (!accessToken) {
+      throw new NotFoundError('Access Token Not Found')
+    }
+
+    // verify token
+    const decodeToken = jwt.verify(accessToken, tokenFind.publicKey) as PayLoad
+    if (userId !== decodeToken.userId) {
+      throw new UnauthorizedError()
+    }
+    req.token = tokenFind
+    return next()
+  },
+)
