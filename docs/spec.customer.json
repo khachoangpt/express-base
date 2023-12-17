@@ -205,6 +205,88 @@
           }
         }
       },
+      "ClothingProductType": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand name of product with clothing type",
+            "example": "Brand name"
+          },
+          "size": {
+            "type": "string",
+            "description": "Size of product with clothing type",
+            "example": "M"
+          },
+          "material": {
+            "type": "string",
+            "description": "Material of product with clothing type",
+            "example": "Blue"
+          }
+        }
+      },
+      "ElectronicProductType": {
+        "type": "object",
+        "properties": {
+          "manufacturer": {
+            "type": "string",
+            "description": "Manufacturer name of product with electronic type",
+            "example": "Manufacturer name"
+          },
+          "model": {
+            "type": "string",
+            "description": "Model of product with electronic type",
+            "example": "Model Z"
+          },
+          "color": {
+            "type": "string",
+            "description": "Color of product with electronic type",
+            "example": "Blue"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Product name",
+            "example": "Product Name"
+          },
+          "thumbnail": {
+            "type": "string",
+            "description": "Product thumbnail url",
+            "example": "https://example.com"
+          },
+          "description": {
+            "type": "string",
+            "description": "Product description",
+            "example": "Product description"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price of product",
+            "example": 1000
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Product inventory quantity",
+            "example": 200
+          },
+          "type": {
+            "$ref": "#/components/schemas/ProductTypeEnum"
+          },
+          "shop": {
+            "type": "string",
+            "description": "Shop name",
+            "example": "Shop Name"
+          },
+          "attributes": {
+            "type": "object",
+            "description": "Product attributes"
+          }
+        }
+      },
       "Shop": {
         "type": "object",
         "properties": {
@@ -265,6 +347,14 @@
             }
           }
         }
+      },
+      "ProductTypeEnum": {
+        "type": "string",
+        "enum": [
+          "electronics",
+          "clothing",
+          "furniture"
+        ]
       }
     }
   },

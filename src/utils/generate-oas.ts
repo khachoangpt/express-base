@@ -19,7 +19,11 @@ const adminOptions: swaggerJSDoc.Options = {
       },
     ],
   },
-  apis: ['./src/controllers/admin/**/*.ts', './src/models/**/*.ts'],
+  apis: [
+    './src/controllers/admin/**/*.ts',
+    './src/models/**/*.ts',
+    './src/constants/enum.ts',
+  ],
 }
 
 const customerOptions: swaggerJSDoc.Options = {
@@ -36,7 +40,11 @@ const customerOptions: swaggerJSDoc.Options = {
       },
     ],
   },
-  apis: ['./src/controllers/customers/**/*.ts', './src/models/**/*.ts'],
+  apis: [
+    './src/controllers/customers/**/*.ts',
+    './src/models/**/*.ts',
+    './src/constants/enum.ts',
+  ],
 }
 
 export const generateAdminOas = async () => {

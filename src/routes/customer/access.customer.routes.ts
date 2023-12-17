@@ -15,11 +15,11 @@ export default (app: Router) => {
 
   router.post('/login', asyncHandler(loginCustomerController))
 
+  router.post('/refresh-token', asyncHandler(refreshTokenCustomerController))
+
   router.use(authentication) //apply for below routes
 
   router.post('/logout', asyncHandler(logoutCustomerController))
-
-  router.post('/refresh-token', asyncHandler(refreshTokenCustomerController))
 
   return router
 }

@@ -27,3 +27,20 @@ export enum PERMISSION {
   ROLE_2 = '1111',
   ROLE_3 = '2222',
 }
+
+/**
+ * @swagger
+ *   components:
+ *     schemas:
+ *       ProductTypeEnum:
+ *         type: string
+ *         enum:
+ *           - electronics
+ *           - clothing
+ *           - furniture
+ */
+export enum ProductTypeEnum {
+  ELECTRONICS = 'electronics',
+  CLOTHING = 'clothing',
+  FURNITURE = 'furniture',
+}
