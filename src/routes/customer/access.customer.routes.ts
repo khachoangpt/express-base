@@ -1,9 +1,9 @@
 import { Router } from 'express'
 
-import loginCustomerController from '@/controllers/customers/login/login.customer.controller'
-import logoutCustomerController from '@/controllers/customers/logout/logout.customer.controller'
-import refreshTokenCustomerController from '@/controllers/customers/refresh-token/refresh-token.customer.controller'
-import signupCustomerController from '@/controllers/customers/signup/signup.customer.controller'
+import loginCustomerController from '@/controllers/customers/access/login/login.customer.controller'
+import logoutCustomerController from '@/controllers/customers/access/logout/logout.customer.controller'
+import refreshTokenCustomerController from '@/controllers/customers/access/refresh-token/refresh-token.customer.controller'
+import signupCustomerController from '@/controllers/customers/access/signup/signup.customer.controller'
 import { asyncHandler, authentication } from '@/utils/check-auth'
 
 const router = Router()

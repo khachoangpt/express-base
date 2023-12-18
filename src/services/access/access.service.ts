@@ -2,11 +2,11 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { RolesEnum } from '@/constants'
-import { LoginDTO } from '@/controllers/customers/login/login.customer.controller'
-import { LoginParams } from '@/controllers/customers/login/login.customer.schema'
-import { RefreshTokenParams } from '@/controllers/customers/refresh-token/refresh-token.customer.schema'
-import { SignUpDTO } from '@/controllers/customers/signup/signup.customer.controller'
-import { SignUpParams } from '@/controllers/customers/signup/signup.customer.schema'
+import { LoginDTO } from '@/controllers/customers/access/login/login.customer.controller'
+import { LoginParams } from '@/controllers/customers/access/login/login.customer.schema'
+import { RefreshTokenParams } from '@/controllers/customers/access/refresh-token/refresh-token.customer.schema'
+import { SignUpDTO } from '@/controllers/customers/access/signup/signup.customer.controller'
+import { SignUpParams } from '@/controllers/customers/access/signup/signup.customer.schema'
 import {
   BadRequestError,
   ConflictRequestError,

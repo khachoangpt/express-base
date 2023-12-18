@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 
-import { CreateApikeyParams } from '@/controllers/customers/create-apikey/create-apikey.customer.schema'
+import { CreateApikeyParams } from '@/controllers/customers/access/create-apikey/create-apikey.customer.schema'
 import apikeyModel from '@/models/apikey/apikey.model'
 
 class ApikeyService {
