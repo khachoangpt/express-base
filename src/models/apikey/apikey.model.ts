@@ -1,17 +1,11 @@
-import { model, Schema } from 'mongoose'
+import { InferSchemaType, model, Schema, Types } from 'mongoose'
 
 import { PERMISSION } from '@/constants'
-
-export interface IApiKey {
-  key: string
-  status: boolean
-  permissions: string[]
-}
 
 const DOCUMENT_NAME = 'Apikey'
 const COLLECTION_NAME = 'Apikeys'
 
-const apiKeySchema = new Schema<IApiKey>(
+const apiKeySchema = new Schema(
   {
     key: {
       type: Schema.Types.String,
@@ -34,4 +28,30 @@ const apiKeySchema = new Schema<IApiKey>(
   },
 )
 
+export type ApiKey = InferSchemaType<typeof apiKeySchema> & {
+  _id: Types.ObjectId
+}
+
 export default model(DOCUMENT_NAME, apiKeySchema)
+
+/**
+ * @swagger
+ *   components:
+ *     schemas:
+ *       ApiKey:
+ *         type: object
+ *         properties:
+ *           key:
+ *             type: string
+ *             description: Api key
+ *             example: Api key
+ *           status:
+ *             type: boolean
+ *             description: Apikey status
+ *           permissions:
+ *             type: string
+ *             enum:
+ *               - 0000
+ *               - 1111
+ *               - 2222
+ */

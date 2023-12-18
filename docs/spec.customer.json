@@ -11,9 +11,41 @@
     }
   ],
   "paths": {
+    "/customer/apikey": {
+      "post": {
+        "summary": "Create apikey",
+        "operationId": "CreateApiKey",
+        "description": "Create apikey",
+        "tags": [
+          "ApiKey"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateApikeyParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A apikey",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiKey"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/customer/login": {
       "post": {
         "summary": "Login",
+        "operationId": "Login",
         "description": "Customer login",
         "parameters": [
           {
@@ -91,9 +123,51 @@
         }
       }
     },
+    "/customer/refresh-token": {
+      "post": {
+        "summary": "Refresh token",
+        "operationId": "RefreshToken",
+        "description": "Refresh token",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Shop"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token pair",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshTokenDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/customer/signup": {
       "post": {
         "summary": "Sign up",
+        "operationId": "SignUp",
         "description": "Customer sign up",
         "parameters": [
           {
@@ -191,6 +265,19 @@
   },
   "components": {
     "schemas": {
+      "CreateApikeyParams": {
+        "type": "object",
+        "properties": {
+          "permissions": {
+            "type": "string",
+            "enum": [
+              0,
+              1111,
+              2222
+            ]
+          }
+        }
+      },
       "LoginDTO": {
         "type": "object",
         "properties": {
@@ -217,6 +304,17 @@
             "type": "string"
           },
           "password": {
+            "type": "string"
+          }
+        }
+      },
+      "RefreshTokenDTO": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
             "type": "string"
           }
         }
@@ -295,6 +393,28 @@
           },
           "description": {
             "type": "string"
+          }
+        }
+      },
+      "ApiKey": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Api key",
+            "example": "Api key"
+          },
+          "status": {
+            "type": "boolean",
+            "description": "Apikey status"
+          },
+          "permissions": {
+            "type": "string",
+            "enum": [
+              0,
+              1111,
+              2222
+            ]
           }
         }
       },

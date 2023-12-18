@@ -8,4 +8,18 @@ export const CreateApikeySchema = z.object({
   ),
 })
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     CreateApikeyParams:
+ *       type: object
+ *       properties:
+ *         permissions:
+ *           type: string
+ *           enum:
+ *             - 0000
+ *             - 1111
+ *             - 2222
+ */
 export type CreateApikeyParams = z.infer<typeof CreateApikeySchema>

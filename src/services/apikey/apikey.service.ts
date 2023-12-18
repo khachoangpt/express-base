@@ -12,6 +12,7 @@ class ApikeyService {
     })
     return createdObjKey
   }
+
   async findById(key: string) {
     const objKey = await apikeyModel.findOne({ key, status: true }).lean()
     return objKey

@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { RolesEnum } from '@/constants'
 import { LoginDTO } from '@/controllers/customers/access/login/login.customer.controller'
 import { LoginParams } from '@/controllers/customers/access/login/login.customer.schema'
+import { RefreshTokenDTO } from '@/controllers/customers/access/refresh-token/refresh-token.customer.controller'
 import { RefreshTokenParams } from '@/controllers/customers/access/refresh-token/refresh-token.customer.schema'
 import { SignUpDTO } from '@/controllers/customers/access/signup/signup.customer.controller'
 import { SignUpParams } from '@/controllers/customers/access/signup/signup.customer.schema'
@@ -119,7 +120,9 @@ export default class AccessService {
     return tokenRemove
   }
 
-  async handleRefreshToken({ refreshToken }: RefreshTokenParams) {
+  async handleRefreshToken({
+    refreshToken,
+  }: RefreshTokenParams): Promise<RefreshTokenDTO> {
     // check token already used
     const tokenFind =
       await this.tokenService.findByRefreshTokenUsed(refreshToken)

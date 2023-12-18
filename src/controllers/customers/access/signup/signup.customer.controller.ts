@@ -12,6 +12,7 @@ import { SignUpParams, SignUpSchema } from './signup.customer.schema'
  * /customer/signup:
  *   post:
  *     summary: Sign up
+ *     operationId: SignUp
  *     description: Customer sign up
  *     parameters:
  *       - in: header

@@ -12,6 +12,7 @@ import { LoginParams, LoginSchema } from './login.customer.schema'
  * /customer/login:
  *   post:
  *     summary: Login
+ *     operationId: Login
  *     description: Customer login
  *     parameters:
  *       - in: header
