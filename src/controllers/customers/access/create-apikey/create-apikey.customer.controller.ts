@@ -33,7 +33,10 @@ import {
  */
 export default async (req: Request, res: Response) => {
   const apikeyService: ApikeyService = req.scope.resolve('apikeyService')
-  const validated = await validator<CreateApikeyParams>(CreateApikeySchema, req)
+  const validated = await validator<CreateApikeyParams>(
+    CreateApikeySchema,
+    req.body,
+  )
   const result: ApiKey = await apikeyService.create(validated)
   res.status(201).json(result)
 }

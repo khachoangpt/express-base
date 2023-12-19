@@ -1,3 +1,5 @@
+import { Types } from 'mongoose'
+
 import { ProductTypeEnum } from '@/constants'
 import { CreateProductParams } from '@/controllers/customers/products/create-product/create-product.customer.schema'
 import { BadRequestError } from '@/core/error.response'
@@ -25,21 +27,25 @@ class ProductService {
     this.product = product
   }
 
-  async createProduct() {
-    const product: Product = await productModel.create(this.product)
+  async createProduct(id: Types.ObjectId) {
+    const product: Product = await productModel.create({
+      ...this.product,
+      _id: id,
+    })
     return product
   }
 }
 
 class Clothing extends ProductService {
   async createProduct(): Promise<Product> {
-    const newClothing = await clothingProductTypeModel.create(
-      this.product.attributes,
-    )
+    const newClothing = await clothingProductTypeModel.create({
+      ...this.product.attributes,
+      shop: this.product.shop,
+    })
     if (!newClothing) {
       throw new BadRequestError('Create Clothing Error')
     }
-    const newProduct = await super.createProduct()
+    const newProduct = await super.createProduct(newClothing._id)
     if (!newProduct) {
       throw new BadRequestError('Create Product Error')
     }
@@ -49,13 +55,14 @@ class Clothing extends ProductService {
 
 class Electronic extends ProductService {
   async createProduct(): Promise<Product> {
-    const newElectronic = await electronicProductTypeModel.create(
-      this.product.attributes,
-    )
+    const newElectronic = await electronicProductTypeModel.create({
+      ...this.product.attributes,
+      shop: this.product.shop,
+    })
     if (!newElectronic) {
       throw new BadRequestError('Create Clothing Error')
     }
-    const newProduct = await super.createProduct()
+    const newProduct = await super.createProduct(newElectronic._id)
     if (!newProduct) {
       throw new BadRequestError('Create Product Error')
     }

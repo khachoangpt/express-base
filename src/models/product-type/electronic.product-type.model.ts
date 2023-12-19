@@ -15,6 +15,10 @@ const electronicProductTypeSchema = new Schema(
     color: {
       type: String,
     },
+    shop: {
+      type: Types.ObjectId,
+      ref: 'Shop',
+    },
   },
   {
     timestamps: true,
@@ -52,4 +56,8 @@ export default model<ElectronicProductType>(
  *             type: string
  *             description: Color of product with electronic type
  *             example: Blue
+ *           shop:
+ *             type: string
+ *             description: Shop id
+ *             example: shop_id
  */

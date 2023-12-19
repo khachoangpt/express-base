@@ -52,6 +52,11 @@
             "type": "string",
             "description": "Material of product with clothing type",
             "example": "Blue"
+          },
+          "shop": {
+            "type": "string",
+            "description": "Shop id",
+            "example": "shop_id"
           }
         }
       },
@@ -72,6 +77,11 @@
             "type": "string",
             "description": "Color of product with electronic type",
             "example": "Blue"
+          },
+          "shop": {
+            "type": "string",
+            "description": "Shop id",
+            "example": "shop_id"
           }
         }
       },

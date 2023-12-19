@@ -15,6 +15,10 @@ const clothingProductTypeSchema = new Schema(
     material: {
       type: String,
     },
+    shop: {
+      type: Types.ObjectId,
+      ref: 'Shop',
+    },
   },
   {
     timestamps: true,
@@ -52,4 +56,8 @@ export default model<ClothingProductType>(
  *             type: string
  *             description: Material of product with clothing type
  *             example: Blue
+ *           shop:
+ *             type: string
+ *             description: Shop id
+ *             example: shop_id
  */

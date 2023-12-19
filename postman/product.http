@@ -1,25 +1,24 @@
 @url_dev=http://localhost:8000/v1/api/customer
-@api_key=6edb89c59c1c6c7826b204003e952b33a152d208306e42089d68b3c29779d0934ec12c13650c881a8c081026045ba78d9e869f725fa44dee07f6332285c7e4ec
-@accessToken=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvYW5nbmNkM0BnbWFpbC5jb20iLCJ1c2VySWQiOiI2NTcwYTYwMmUyZWZkYzYxODYxMDYwZTQiLCJpYXQiOjE3MDI5MDc1MDEsImV4cCI6MTcwMzA4MDMwMX0.A71rww0OW212ChtUeO7kvMqkot7N_J8F3Ls2DqZyZjsLXwEAPq5J71vwPRV04v-Z3UdYw_ZNiZtmFwcfsj3pb706n_69MeU6Pf4keVRecJiD6IrC_8zqp1mcVmpo6gVyPNALz8Inusz_6N5w9q0bbp-6KfzDw0JLQVy7UCuR010LKU0g609zFRf2jeWkwBtdkl0ewxCkCAuoKFI4-Q4lC0Q6sIucxd9xBhd9E9e3EmyYA9o4VOVtI7_eKb4s77eoxuyC0BTIxenG9asu-H-lTEUqak7DIYaLFtN7Mh3m8UsK8nylrpFJqq7WCBzkSyq0AvPUZkSLtxNoPTBOgxkVyLegjfzyTspoAioM7YiwtPBRgX8zGNjVOQaTiMK7Y3JUvJQK4nL-WAh60H9OEF68ykaqPuWHF7zNShWvLqZuiiwoCcD-4k2Syb8-OStRIcn7r1TK-p9WdwdOoln0Yia40xtll477MSMQR0IqKgx7M1LE_HrvLjWnhEb2GXZwDJKbAIYWr7XfNQzliYtaXLUW7zljy330Zw-uOJibBvE_ZC93y9moS1Khb2-DQMg4sP-HgKNV_2IDf30rxjgmHfkrUiejr64XrN-WbvJNiTC0Fsf6HF_2SFBK7xLu_30SRsRA_T34mVfiGEGTYMFL1r6VqA6OagFsp-Gtk3l422j_1dY
+@api_key=1441e5463d7e0fcf6f61b6b487377616c144c9d5209d76483ea5cfa7faeda95d925288c60b3b00a7c65a7aaa32a519815fb61b76134e7484ddc5dd64ee369884
+@accessToken=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvYW5nbmNkM0BnbWFpbC5jb20iLCJ1c2VySWQiOiI2NTcxOGI5YzVlOTMyOGJlNTRlM2VkODgiLCJpYXQiOjE3MDI5NjY3ODUsImV4cCI6MTcwMzEzOTU4NX0.YDDVo3sm-chS0txizLte9x8LNP3lzr9JaxtzC6ikasZl4BMW5hMJLCvigKlZowmeSKOs7Cr9sQjFl0lG_HyJ_3K2iD3HW8wQILIlxwQmWBbAqHhSZP5vptnpSKNc7P7yRM4lIbSGhabJAwnxnIIk0pgMuIUvSJTni-4wSQWkxkkO9KVRhvqUTy0BL3WlrF9FVjyKS5OWuHkO9--nhjpokGLUvInFr5325APRv2N2ksFLlvIlU6aaQP0AIF_GYPrk1XMF3eG80p3l18LoygCAuAOLS8PphVSLftLUHn4TUHOANe7MvIS5vnzxHmKnvCvIX8gj1OfyyrRXfnY6G9VE3BAa0-alV2DPw3FykV5UBuw-AOLwt5ixOqXy36LsqIubxMCAY3V3wytC_dExLlwEW0zQvliFNHgBWxCvxbTCZxmw7RJ_6k58jz9K2kyxPkjfjgSS7gUqVLxh21JnJdguL-1l9bpbJvF0QRhDwHvC32mNx563P6zKwgQjMGXnucSNBYaTggEQH3hFUislw0a-IYlqHchcxQR0u1HYbj2aFvYbUMMfWm4Eh5OppXalDcsyX9ZMY9Ze7boNihRkEMDrCCzrvAgcH3T1ZdAf5hC--MtqOe8Hb7-XpLdDcywYY58X_h-EtlhIkF6hT2Eaylc8Kbcxr9hRK_zCqbVmYq0uGlo
 
 ### create product
 POST {{url_dev}}/product
 Content-Type: application/json
 x-api-key: {{api_key}}
 Authorization: {{accessToken}}
-x-client-id: 6570a602e2efdc61861060e4
+x-client-id: 65718b9c5e9328be54e3ed88
 
 {
-  "title": "Product Electronic 03",
+  "title": "Product Electronic 02",
   "type": "electronics",
   "thumbnail": "http://image",
   "price": 1000,
   "quantity": 100,
-  "shop": "6570a602e2efdc61861060e4",
   "attributes": {
-    "manufacturer": "Manufacturer 03",
-    "model": "Model 03",
+    "manufacturer": "Manufacturer 02",
+    "model": "Model 02",
     "color": "Red"
   },
-  "description": "Product Electronic 03 Description"
+  "description": "Product Electronic 02 Description"
 }

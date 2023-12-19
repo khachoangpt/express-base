@@ -39,7 +39,10 @@ import {
  */
 export default async (req: Request, res: Response) => {
   const accessService: AccessService = req.scope.resolve('accessService')
-  const validated = await validator<RefreshTokenParams>(RefreshTokenSchema, req)
+  const validated = await validator<RefreshTokenParams>(
+    RefreshTokenSchema,
+    req.body,
+  )
   const token = await accessService.handleRefreshToken(validated)
   res.status(statusCodes.OK).json(token)
 }

@@ -38,7 +38,7 @@ import { SignUpParams, SignUpSchema } from './signup.customer.schema'
 export default async (req: Request, res: Response) => {
   const accessService: AccessService = req.scope.resolve('accessService')
 
-  const validated = await validator<SignUpParams>(SignUpSchema, req)
+  const validated = await validator<SignUpParams>(SignUpSchema, req.body)
   const result = await accessService.signUp(validated)
   res.status(statusCodes.OK).json(result)
 }

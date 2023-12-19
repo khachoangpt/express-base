@@ -7,4 +7,11 @@ export default class ShopService {
   ) {
     return await shopModel.findOne({ email }).select(select).lean()
   }
+
+  async findById(
+    id: string,
+    select = { email: 1, password: 1, name: 1, status: 1, roles: 1 },
+  ) {
+    return await shopModel.findOne({ _id: id }).select(select).lean()
+  }
 }

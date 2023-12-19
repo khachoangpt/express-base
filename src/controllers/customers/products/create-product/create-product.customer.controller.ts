@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 
 import statusCodes from '@/constants/http-status-code/status-codes'
 import { validator } from '@/middleware/validate'
+import { Shop } from '@/models/shop/shop.model'
 import ProductServiceFactory from '@/services/product/product.service'
 
 import {
@@ -38,7 +39,7 @@ import {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Product'
+ *             $ref: '#/components/schemas/CreateProductParams'
  *     responses:
  *       201:
  *         description: A product
@@ -48,12 +49,13 @@ import {
  *               $ref: '#/components/schemas/Product'
  */
 export default async (req: Request, res: Response) => {
+  const user: Shop = req.user
   const productService: ProductServiceFactory =
     req.scope.resolve('productService')
-  const validated = await validator<CreateProductParams>(
-    createProductSchema,
-    req,
-  )
+  const validated = await validator<CreateProductParams>(createProductSchema, {
+    ...req.body,
+    shop: user._id,
+  })
   const product = await productService.createProduct(validated)
   res.status(statusCodes.CREATED).json(product)
 }

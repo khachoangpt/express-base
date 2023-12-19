@@ -4,7 +4,9 @@ import { Types } from 'mongoose'
 
 import { HEADER, PERMISSION } from '@/constants'
 import { NotFoundError, UnauthorizedError } from '@/core/error.response'
+import { Shop } from '@/models/shop/shop.model'
 import ApikeyService from '@/services/apikey/apikey.service'
+import ShopService from '@/services/shop/shop.service'
 import TokenService from '@/services/token/token.service'
 import { PayLoad } from '@/types'
 
@@ -64,6 +66,13 @@ export const authentication = asyncHandler(
       throw new UnauthorizedError('Header is missing some properties')
     }
 
+    // check user exist
+    const shopService: ShopService = req.scope.resolve('shopService')
+    const userFind: Shop | null = await shopService.findById(userId)
+    if (!userFind) {
+      throw new NotFoundError('User Not Found')
+    }
+
     // check token with userId
     const tokenService: TokenService = req.scope.resolve('tokenService')
     const tokenFind = await tokenService.findByUserId(
@@ -83,6 +92,7 @@ export const authentication = asyncHandler(
       throw new UnauthorizedError()
     }
     req.token = tokenFind
+    req.user = userFind
     return next()
   },
 )

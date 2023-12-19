@@ -1,14 +1,13 @@
-import { Request } from 'express'
 import { z } from 'zod'
 
 import { ConflictRequestError } from '@/core/error.response'
 
 export const validator = async <T>(
   schema: z.AnyZodObject | z.ZodOptional<z.AnyZodObject>,
-  req: Request,
+  requestBody: unknown,
 ): Promise<T> => {
   try {
-    const parseData = (await schema.parseAsync(req.body)) as T
+    const parseData = (await schema.parseAsync(requestBody)) as T
     return parseData
   } catch (error) {
     if (error instanceof z.ZodError) {
