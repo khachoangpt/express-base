@@ -41,7 +41,7 @@ const customerOptions: swaggerJSDoc.Options = {
     ],
   },
   apis: [
-    './src/controllers/customers/**/*.ts',
+    './src/controllers/customer/**/*.ts',
     './src/models/**/*.ts',
     './src/constants/enum.ts',
   ],

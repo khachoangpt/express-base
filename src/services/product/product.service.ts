@@ -1,7 +1,7 @@
 import { FilterQuery, Types } from 'mongoose'
 
 import { ProductTypeEnum } from '@/constants'
-import { CreateProductParams } from '@/controllers/customers/products/create-product/create-product.customer.schema'
+import { CreateProductParams } from '@/controllers/customer/products/create-product/create-product.customer.schema'
 import { BadRequestError, NotFoundError } from '@/core/error.response'
 import productModel, { Product } from '@/models/product/product.model'
 import clothingProductTypeModel from '@/models/product-type/clothing.product-type.model'
@@ -43,7 +43,25 @@ class ProductServiceFactory {
     offset: number
   }) {
     const query: FilterQuery<Product> = { shop, is_draft: true }
-    const products = await this.productRepository.getDraftProducts(
+    const products = await this.productRepository.getProducts(
+      query,
+      limit,
+      offset,
+    )
+    return products
+  }
+
+  async getPublishedProducts({
+    shop,
+    limit = 50,
+    offset = 0,
+  }: {
+    shop: string
+    limit: number
+    offset: number
+  }) {
+    const query: FilterQuery<Product> = { shop, is_published: true }
+    const products = await this.productRepository.getProducts(
       query,
       limit,
       offset,
@@ -73,6 +91,11 @@ class ProductServiceFactory {
     const product = await productModel.findById(productId)
 
     return product
+  }
+
+  async search({ q }: { q: string }) {
+    const products = await this.productRepository.searchProduct({ q })
+    return products
   }
 }
 

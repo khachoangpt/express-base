@@ -9,9 +9,9 @@ const router = Router()
 export default (app: Router) => {
   app.use('/customer', router)
 
+  productCustomerRoutes(router)
   accessCustomerRoutes(router)
   apikeyCustomerRoutes(router)
-  productCustomerRoutes(router)
 
   return router
 }

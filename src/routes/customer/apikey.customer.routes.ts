@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import createApikeyCustomerController from '@/controllers/customers/access/create-apikey/create-apikey.customer.controller'
+import createApikeyCustomerController from '@/controllers/customer/access/create-apikey/create-apikey.customer.controller'
 import { asyncHandler } from '@/utils'
 
 const router = Router()

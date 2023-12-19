@@ -77,6 +77,9 @@ export type Product = InferSchemaType<typeof productSchema> & {
   _id: Types.ObjectId
 }
 
+// create index for search
+productSchema.index({ title: 'text', description: 'text' })
+
 productSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true })
   next()
