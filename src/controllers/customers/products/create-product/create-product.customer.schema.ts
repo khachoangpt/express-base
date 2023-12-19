@@ -13,6 +13,11 @@ export const createProductSchema = z.object({
     .string({ required_error: 'Thumbnail is required' })
     .trim()
     .min(1, 'Thumbnail can not be empty'),
+  ratings: z
+    .number({ required_error: 'Ratings is required' })
+    .min(1, 'Rating must be > 1')
+    .max(5, 'Rating must be < 5'),
+  variants: z.array(z.any()),
   price: z
     .number({ required_error: 'Price is required' })
     .min(1, 'Price must be a positive number'),
@@ -37,6 +42,10 @@ export const createProductSchema = z.object({
  *           type: string
  *         thumbnail:
  *           type: string
+ *         ratings:
+ *           type: number
+ *         variants:
+ *           type: array
  *         price:
  *           type: number
  *         quantity:

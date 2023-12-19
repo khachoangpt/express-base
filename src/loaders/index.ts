@@ -1,9 +1,7 @@
 import { createContainer } from 'awilix'
 import { Express, NextFunction, Request, Response } from 'express'
 
-import { appConfig } from '@/configs/app-config'
 import { logger } from '@/configs/logger'
-import { DbTypeEnum } from '@/constants'
 
 import apiLoader from './api.loader'
 import databaseLoader from './database.loader'
@@ -32,11 +30,9 @@ export default async (app: Express) => {
   await modelsLoader({ container })
   logger.info(`Success Models Loader`)
 
-  if (appConfig.db.TYPE === DbTypeEnum.POSTGRES) {
-    logger.info(`Start Repositories Loader`)
-    await repositoriesLoader({ container })
-    logger.info(`Success Repositories Loader`)
-  }
+  logger.info(`Start Repositories Loader`)
+  await repositoriesLoader({ container })
+  logger.info(`Success Repositories Loader`)
 
   logger.info(`Start Services Loader`)
   await servicesLoader({ container })

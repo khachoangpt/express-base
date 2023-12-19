@@ -21,6 +21,7 @@ const shopSchema = new Schema(
     password: {
       type: Schema.Types.String,
       required: true,
+      select: false,
     },
     status: {
       type: Schema.Types.String,

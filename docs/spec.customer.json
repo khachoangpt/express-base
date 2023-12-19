@@ -261,6 +261,74 @@
           }
         }
       }
+    },
+    "/customer/product/draft": {
+      "get": {
+        "summary": "Get draft products",
+        "operationId": "GetDraftProducts",
+        "description": "Get draft products",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "x-client-id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number"
+            },
+            "required": false
+          }
+        ],
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of draft products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "description": "An array of products",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -371,6 +439,12 @@
           },
           "thumbnail": {
             "type": "string"
+          },
+          "ratings": {
+            "type": "number"
+          },
+          "variants": {
+            "type": "array"
           },
           "price": {
             "type": "number"
@@ -513,6 +587,29 @@
             "type": "string",
             "description": "Product description",
             "example": "Product description"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Product slug",
+            "example": "Product slug"
+          },
+          "ratings": {
+            "type": "number",
+            "description": "Product rating",
+            "example": "Product rating"
+          },
+          "variants": {
+            "type": "array",
+            "description": "Product variant",
+            "example": []
+          },
+          "is_draft": {
+            "type": "boolean",
+            "example": true
+          },
+          "is_published": {
+            "type": "boolean",
+            "example": false
           },
           "price": {
             "type": "number",

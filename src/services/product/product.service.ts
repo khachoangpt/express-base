@@ -1,4 +1,4 @@
-import { Types } from 'mongoose'
+import { FilterQuery, Types } from 'mongoose'
 
 import { ProductTypeEnum } from '@/constants'
 import { CreateProductParams } from '@/controllers/customers/products/create-product/create-product.customer.schema'
@@ -7,8 +7,18 @@ import productModel, { Product } from '@/models/product/product.model'
 import clothingProductTypeModel from '@/models/product-type/clothing.product-type.model'
 import electronicProductTypeModel from '@/models/product-type/electronic.product-type.model'
 import furnitureProductTypeModel from '@/models/product-type/furniture.product-type.model'
+import ProductRepository from '@/repositories/product/product.repository'
 
+type DependencyInjectable = {
+  productRepository: ProductRepository
+}
 class ProductServiceFactory {
+  protected readonly productRepository: ProductRepository
+
+  constructor(container: DependencyInjectable) {
+    this.productRepository = container.productRepository
+  }
+
   async createProduct(product: CreateProductParams) {
     const type = product.type
     switch (type) {
@@ -21,6 +31,24 @@ class ProductServiceFactory {
       default:
         throw new NotFoundError(`Product Type ${type} Not Found`)
     }
+  }
+
+  async getDraftProducts({
+    shop,
+    limit = 50,
+    offset = 0,
+  }: {
+    shop: string
+    limit: number
+    offset: number
+  }) {
+    const query: FilterQuery<Product> = { shop, is_draft: true }
+    const products = await this.productRepository.getDraftProducts(
+      query,
+      limit,
+      offset,
+    )
+    return products
   }
 }
 

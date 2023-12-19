@@ -10,15 +10,25 @@ Authorization: {{accessToken}}
 x-client-id: 65718b9c5e9328be54e3ed88
 
 {
-  "title": "Product Electronic 02",
+  "title": "Product Electronic 03",
   "type": "electronics",
   "thumbnail": "http://image",
+  "ratings": 5,
+  "variants": [],
   "price": 1000,
   "quantity": 100,
   "attributes": {
-    "manufacturer": "Manufacturer 02",
-    "model": "Model 02",
+    "manufacturer": "Manufacturer 03",
+    "model": "Model 03",
     "color": "Red"
   },
-  "description": "Product Electronic 02 Description"
+  "description": "Product Electronic 03 Description"
 }
+
+
+### get draft products
+GET {{url_dev}}/product/draft?limit=50&offset=0
+Content-Type: application/json
+x-api-key: {{api_key}}
+Authorization: {{accessToken}}
+x-client-id: 65718b9c5e9328be54e3ed88

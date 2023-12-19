@@ -128,6 +128,29 @@
             "description": "Product description",
             "example": "Product description"
           },
+          "slug": {
+            "type": "string",
+            "description": "Product slug",
+            "example": "Product slug"
+          },
+          "ratings": {
+            "type": "number",
+            "description": "Product rating",
+            "example": "Product rating"
+          },
+          "variants": {
+            "type": "array",
+            "description": "Product variant",
+            "example": []
+          },
+          "is_draft": {
+            "type": "boolean",
+            "example": true
+          },
+          "is_published": {
+            "type": "boolean",
+            "example": false
+          },
           "price": {
             "type": "number",
             "description": "Price of product",
