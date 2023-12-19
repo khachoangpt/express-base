@@ -388,6 +388,9 @@
               },
               {
                 "$ref": "#/components/schemas/ElectronicProductType"
+              },
+              {
+                "$ref": "#/components/schemas/FurnitureProductType"
               }
             ]
           },
@@ -459,6 +462,31 @@
           "color": {
             "type": "string",
             "description": "Color of product with electronic type",
+            "example": "Blue"
+          },
+          "shop": {
+            "type": "string",
+            "description": "Shop id",
+            "example": "shop_id"
+          }
+        }
+      },
+      "FurnitureProductType": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand name of product with furniture type",
+            "example": "Brand name"
+          },
+          "size": {
+            "type": "string",
+            "description": "Size of product with furniture type",
+            "example": "M"
+          },
+          "material": {
+            "type": "string",
+            "description": "Material of product with furniture type",
             "example": "Blue"
           },
           "shop": {

@@ -2,10 +2,11 @@ import { Types } from 'mongoose'
 
 import { ProductTypeEnum } from '@/constants'
 import { CreateProductParams } from '@/controllers/customers/products/create-product/create-product.customer.schema'
-import { BadRequestError } from '@/core/error.response'
+import { BadRequestError, NotFoundError } from '@/core/error.response'
 import productModel, { Product } from '@/models/product/product.model'
 import clothingProductTypeModel from '@/models/product-type/clothing.product-type.model'
 import electronicProductTypeModel from '@/models/product-type/electronic.product-type.model'
+import furnitureProductTypeModel from '@/models/product-type/furniture.product-type.model'
 
 class ProductServiceFactory {
   async createProduct(product: CreateProductParams) {
@@ -15,8 +16,10 @@ class ProductServiceFactory {
         return new Electronic(product).createProduct()
       case ProductTypeEnum.CLOTHING:
         return new Clothing(product).createProduct()
+      case ProductTypeEnum.FURNITURE:
+        return new Furniture(product).createProduct()
       default:
-        break
+        throw new NotFoundError(`Product Type ${type} Not Found`)
     }
   }
 }
@@ -63,6 +66,23 @@ class Electronic extends ProductService {
       throw new BadRequestError('Create Clothing Error')
     }
     const newProduct = await super.createProduct(newElectronic._id)
+    if (!newProduct) {
+      throw new BadRequestError('Create Product Error')
+    }
+    return newProduct
+  }
+}
+
+class Furniture extends ProductService {
+  async createProduct(): Promise<Product> {
+    const newFurniture = await furnitureProductTypeModel.create({
+      ...this.product.attributes,
+      shop: this.product.shop,
+    })
+    if (!newFurniture) {
+      throw new BadRequestError('Create Furniture Error')
+    }
+    const newProduct = await super.createProduct(newFurniture._id)
     if (!newProduct) {
       throw new BadRequestError('Create Product Error')
     }

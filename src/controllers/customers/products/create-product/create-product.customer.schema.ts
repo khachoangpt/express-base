@@ -47,6 +47,7 @@ export const createProductSchema = z.object({
  *           oneOf:
  *             - $ref: '#/components/schemas/ClothingProductType'
  *             - $ref: '#/components/schemas/ElectronicProductType'
+ *             - $ref: '#/components/schemas/FurnitureProductType'
  *         description:
  *           type: string
  */

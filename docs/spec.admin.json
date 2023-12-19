@@ -85,6 +85,31 @@
           }
         }
       },
+      "FurnitureProductType": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand name of product with furniture type",
+            "example": "Brand name"
+          },
+          "size": {
+            "type": "string",
+            "description": "Size of product with furniture type",
+            "example": "M"
+          },
+          "material": {
+            "type": "string",
+            "description": "Material of product with furniture type",
+            "example": "Blue"
+          },
+          "shop": {
+            "type": "string",
+            "description": "Shop id",
+            "example": "shop_id"
+          }
+        }
+      },
       "Product": {
         "type": "object",
         "properties": {
