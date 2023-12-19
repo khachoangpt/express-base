@@ -2,6 +2,7 @@ import { Router } from 'express'
 
 import createProductCustomerController from '@/controllers/customers/products/create-product/create-product.customer.controller'
 import getDraftProductsCustomerController from '@/controllers/customers/products/get-draft-products/get-draft-products.customer.controller'
+import publishProductCustomerController from '@/controllers/customers/products/publish-product/publish-product.customer.controller'
 import { asyncHandler, authentication } from '@/utils'
 
 const router = Router()
@@ -13,6 +14,8 @@ export default (app: Router) => {
   router.post('/', asyncHandler(createProductCustomerController))
 
   router.get('/draft', asyncHandler(getDraftProductsCustomerController))
+
+  router.post('/publish', asyncHandler(publishProductCustomerController))
 
   return router
 }

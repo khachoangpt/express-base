@@ -32,3 +32,15 @@ Content-Type: application/json
 x-api-key: {{api_key}}
 Authorization: {{accessToken}}
 x-client-id: 65718b9c5e9328be54e3ed88
+
+
+### publish product
+POST {{url_dev}}/product/publish
+Content-Type: application/json
+x-api-key: {{api_key}}
+Authorization: {{accessToken}}
+x-client-id: 65718b9c5e9328be54e3ed88
+
+{
+  "productId": "6581477d2496814afa883dde"
+}

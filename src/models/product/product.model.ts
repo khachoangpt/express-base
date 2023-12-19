@@ -37,13 +37,11 @@ const productSchema = new Schema(
       type: Boolean,
       default: true,
       index: true,
-      select: false,
     },
     is_published: {
       type: Boolean,
       default: false,
       index: true,
-      select: true,
     },
     price: {
       type: Number,

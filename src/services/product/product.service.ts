@@ -50,6 +50,30 @@ class ProductServiceFactory {
     )
     return products
   }
+
+  async publishProduct({
+    shopId,
+    productId,
+  }: {
+    shopId: string
+    productId: string
+  }) {
+    const updatedProduct = await productModel.updateOne(
+      {
+        shop: shopId,
+        _id: productId,
+      },
+      { is_draft: false, is_published: true },
+    )
+
+    if (updatedProduct.modifiedCount !== 1) {
+      throw new Error('Update error')
+    }
+
+    const product = await productModel.findById(productId)
+
+    return product
+  }
 }
 
 class ProductService {

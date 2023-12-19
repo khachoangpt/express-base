@@ -329,6 +329,63 @@
           }
         }
       }
+    },
+    "/customer/product/publish": {
+      "post": {
+        "summary": "Publish product",
+        "operationId": "PublishProduct",
+        "description": "Publish product",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "x-client-id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Product"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishProductBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -469,6 +526,14 @@
             ]
           },
           "description": {
+            "type": "string"
+          }
+        }
+      },
+      "PublishProductBody": {
+        "type": "object",
+        "properties": {
+          "productId": {
             "type": "string"
           }
         }
