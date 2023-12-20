@@ -260,6 +260,56 @@
             }
           }
         }
+      },
+      "get": {
+        "summary": "Get all products",
+        "operationId": "GetAllProducts",
+        "description": "Get All products",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number"
+            },
+            "required": false
+          }
+        ],
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "description": "An array of products",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/customer/product/draft": {
@@ -323,6 +373,47 @@
                   "items": {
                     "$ref": "#/components/schemas/Product"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/product/{id}": {
+      "get": {
+        "summary": "Get a product",
+        "operationId": "GetProduct",
+        "description": "Get a product",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "product id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "A product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }

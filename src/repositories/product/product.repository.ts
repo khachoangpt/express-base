@@ -1,6 +1,8 @@
 import { FilterQuery, SortOrder } from 'mongoose'
 
+import { NotFoundError } from '@/core/error.response'
 import productModel, { Product } from '@/models/product/product.model'
+import { getSelectData } from '@/utils'
 
 class ProductRepository {
   async getProducts(
@@ -32,23 +34,41 @@ class ProductRepository {
     return products
   }
 
-  async getAll(
-    limit: number,
-    offset: number,
-    sort: string,
-    filter: FilterQuery<Product>,
-    select: string[],
-  ) {
+  async getAll({
+    filter,
+    limit,
+    offset,
+    select,
+    sort,
+  }: {
+    limit?: number
+    offset?: number
+    sort?: string
+    filter?: FilterQuery<Product>
+    select?: string[]
+  }) {
     const sortBy: { [key: string]: SortOrder } =
       sort === 'ctime' ? { _id: -1 } : { _id: 1 }
+    const selectData = getSelectData(select ?? [])
+
     const products = await productModel
-      .find(filter)
+      .find(filter ?? {})
       .sort(sortBy)
-      .skip(offset)
-      .limit(limit)
-      .select(select)
+      .skip(offset ?? 0)
+      .limit(limit ?? 50)
+      .select(selectData)
       .lean()
     return products
+  }
+
+  async getOne(id: string): Promise<Product | null> {
+    const product: Product | null = await productModel
+      .findOne({ _id: id })
+      .populate('shop')
+    if (!product) {
+      throw new NotFoundError('Product Not Found')
+    }
+    return product
   }
 }
 

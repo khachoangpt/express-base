@@ -84,8 +84,8 @@ class ProductServiceFactory {
       { is_draft: false, is_published: true },
     )
 
-    if (updatedProduct.modifiedCount !== 1) {
-      throw new Error('Update error')
+    if (updatedProduct.modifiedCount === 0) {
+      throw new Error('No Product Updated')
     }
 
     const product = await productModel.findById(productId)
@@ -96,6 +96,37 @@ class ProductServiceFactory {
   async search({ q }: { q: string }) {
     const products = await this.productRepository.searchProduct({ q })
     return products
+  }
+
+  async getAllProducts({
+    filter,
+    limit,
+    offset,
+    select,
+    sort,
+  }: {
+    limit?: number
+    offset?: number
+    sort?: string
+    filter?: FilterQuery<Product>
+    select?: string[]
+  }) {
+    const products: Product[] = await this.productRepository.getAll({
+      filter,
+      limit,
+      offset,
+      select,
+      sort,
+    })
+    return products
+  }
+
+  async getProductById(productId: string) {
+    if (!productId) {
+      throw new NotFoundError('Product Id Not Not Found')
+    }
+    const product = await this.productRepository.getOne(productId)
+    return product
   }
 }
 
