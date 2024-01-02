@@ -11,11 +11,6 @@ import ProductServiceFactory from '@/services/product/product.service'
  *     operationId: GetAllProducts
  *     description: Get All products
  *     parameters:
- *       - in: header
- *         name: x-api-key
- *         schema:
- *           type: string
- *         required: true
  *       - in: query
  *         name: limit
  *         schema:
