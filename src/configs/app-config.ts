@@ -12,4 +12,5 @@ export const appConfig: AppConfig = {
     TYPE: (process.env.DATABASE_TYPE as DbTypeEnum) ?? DbTypeEnum.POSTGRES,
     DATABASE_CONNECTION: process.env.DATABASE_CONNECTION ?? '',
   },
+  cors: { CUSTOMER_CORS: process.env.CUSTOMER_CORS ?? '' },
 }

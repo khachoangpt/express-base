@@ -14,12 +14,6 @@ import { LoginParams, LoginSchema } from './login.customer.schema'
  *     summary: Login
  *     operationId: Login
  *     description: Customer login
- *     parameters:
- *       - in: header
- *         name: x-api-key
- *         schema:
- *           type: string
- *         required: true
  *     tags:
  *       - Shop
  *     requestBody:

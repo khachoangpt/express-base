@@ -7,4 +7,7 @@ export type AppConfig = {
     TYPE: DbTypeEnum
     DATABASE_CONNECTION: string
   }
+  cors: {
+    CUSTOMER_CORS: string
+  }
 }

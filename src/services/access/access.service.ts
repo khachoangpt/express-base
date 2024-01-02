@@ -17,6 +17,7 @@ import {
 import shopModel, { Shop } from '@/models/shop/shop.model'
 import tokenModel, { Token } from '@/models/token/token.model'
 import { PayLoad } from '@/types'
+import { pickData } from '@/utils'
 import { createTokenPair } from '@/utils/create-token-pair'
 import { generateKeyPair } from '@/utils/generate-key-pair'
 
@@ -88,7 +89,7 @@ export default class AccessService {
     }
 
     // match password
-    const matchPassword = bcrypt.compare(password, foundShop.password)
+    const matchPassword = await bcrypt.compare(password, foundShop.password)
     if (!matchPassword) {
       throw new UnauthorizedError('Authentication error')
     }
@@ -112,7 +113,12 @@ export default class AccessService {
       throw new Error('Create Tokens Error')
     }
 
-    return { shop: foundShop, tokens }
+    const shop = pickData({
+      fields: ['email', 'name', 'roles', '_id', 'status'],
+      object: foundShop,
+    }) as Shop
+
+    return { shop, tokens }
   }
 
   async logout(token: Token) {
