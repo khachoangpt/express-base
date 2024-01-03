@@ -594,7 +594,7 @@
           "shop": {
             "$ref": "#/components/schemas/Shop"
           },
-          "token": {
+          "tokens": {
             "type": "object",
             "properties": {
               "accessToken": {

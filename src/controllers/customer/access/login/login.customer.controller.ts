@@ -46,7 +46,7 @@ export default async (req: Request, res: Response) => {
  *       properties:
  *         shop:
  *           $ref: '#/components/schemas/Shop'
- *         token:
+ *         tokens:
  *           type: object
  *           properties:
  *             accessToken:
