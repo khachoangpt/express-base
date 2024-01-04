@@ -401,6 +401,46 @@
             }
           }
         }
+      },
+      "put": {
+        "summary": "Update product",
+        "operationId": "UpdateProduct",
+        "description": "Customer update product",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "product id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Product"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "A product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/customer/product/published": {
@@ -719,6 +759,51 @@
         "type": "object",
         "properties": {
           "productId": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateProductParams": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "thumbnail": {
+            "type": "string"
+          },
+          "ratings": {
+            "type": "number"
+          },
+          "variants": {
+            "type": "array"
+          },
+          "price": {
+            "type": "number"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "shop": {
+            "type": "string"
+          },
+          "attributes": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ClothingProductType"
+              },
+              {
+                "$ref": "#/components/schemas/ElectronicProductType"
+              },
+              {
+                "$ref": "#/components/schemas/FurnitureProductType"
+              }
+            ]
+          },
+          "description": {
             "type": "string"
           }
         }

@@ -7,6 +7,7 @@ import getProductDetailCustomerController from '@/controllers/customer/products/
 import getPublishedProductsCustomerController from '@/controllers/customer/products/get-published-product/get-published-products.customer.controller'
 import publishProductCustomerController from '@/controllers/customer/products/publish-product/publish-product.customer.controller'
 import searchProductCustomerController from '@/controllers/customer/products/search-product/search-product.customer.controller'
+import updateProductCustomerController from '@/controllers/customer/products/update-product/update-product.customer.controller'
 import { asyncHandler, authentication } from '@/utils'
 
 const router = Router()
@@ -22,6 +23,8 @@ export default (app: Router) => {
 
   router.use(authentication)
   router.post('/', asyncHandler(createProductCustomerController))
+
+  router.put('/:id', asyncHandler(updateProductCustomerController))
 
   router.get('/draft', asyncHandler(getDraftProductsCustomerController))
 
