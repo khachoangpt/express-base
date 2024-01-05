@@ -45,6 +45,7 @@ const discountSchema = new Schema(
       // number of discount used
       type: Schema.Types.Number,
       required: true,
+      default: 0,
     },
     users_used: {
       // list of user used discount

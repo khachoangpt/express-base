@@ -3,7 +3,10 @@ import { z } from 'zod'
 import { ConflictRequestError } from '@/core/error.response'
 
 export const validator = async <T>(
-  schema: z.AnyZodObject | z.ZodOptional<z.AnyZodObject>,
+  schema:
+    | z.AnyZodObject
+    | z.ZodOptional<z.AnyZodObject>
+    | z.ZodEffects<z.AnyZodObject>,
   requestBody: unknown,
 ): Promise<T> => {
   try {

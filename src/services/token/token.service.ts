@@ -1,10 +1,10 @@
-import { Types } from 'mongoose'
+import { Schema } from 'mongoose'
 
 import { NotFoundError } from '@/core/error.response'
 import tokenModel from '@/models/token/token.model'
 
 type CreateTokenParams = {
-  userId: Types.ObjectId
+  userId: Schema.Types.ObjectId
   publicKey: string
   refreshToken?: string
 }
@@ -25,7 +25,7 @@ class TokenService {
     }
   }
 
-  async findByUserId(userId: Types.ObjectId) {
+  async findByUserId(userId: Schema.Types.ObjectId) {
     const tokenFind = await tokenModel.findOne({ user: userId }).lean()
     if (!tokenFind) {
       throw new NotFoundError('Token Not Found')
@@ -33,7 +33,7 @@ class TokenService {
     return tokenFind
   }
 
-  async removeTokenById(id: Types.ObjectId) {
+  async removeTokenById(id: Schema.Types.ObjectId) {
     const tokenRemove = await tokenModel.findByIdAndRemove(id, { lean: true })
     return tokenRemove
   }

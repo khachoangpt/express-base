@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
-import { Types } from 'mongoose'
 
 import { HEADER, PERMISSION } from '@/constants'
 import { NotFoundError, UnauthorizedError } from '@/core/error.response'
@@ -9,6 +8,8 @@ import ApikeyService from '@/services/apikey/apikey.service'
 import ShopService from '@/services/shop/shop.service'
 import TokenService from '@/services/token/token.service'
 import { PayLoad } from '@/types'
+
+import { toObjectId } from '.'
 
 export const apiKey = async (
   req: Request,
@@ -75,9 +76,7 @@ export const authentication = asyncHandler(
 
     // check token with userId
     const tokenService: TokenService = req.scope.resolve('tokenService')
-    const tokenFind = await tokenService.findByUserId(
-      new Types.ObjectId(userId),
-    )
+    const tokenFind = await tokenService.findByUserId(toObjectId(userId))
 
     // get access token
     const accessToken = req.headers[HEADER.AUTHORIZATION] as string
