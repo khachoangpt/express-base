@@ -830,6 +830,99 @@
           }
         }
       },
+      "Discount": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Discount name",
+            "example": "Sale black friday"
+          },
+          "description": {
+            "type": "string",
+            "description": "Discount description",
+            "example": "Sale 10%"
+          },
+          "type": {
+            "$ref": "#/components/schemas/DiscountTypeEnum"
+          },
+          "value": {
+            "type": "number",
+            "description": "Discount value",
+            "example": 10
+          },
+          "code": {
+            "type": "string",
+            "description": "Discount code",
+            "example": "BLACK_FRIDAY_SALE"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Discount start date",
+            "example": "2023/11/11"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Discount end date",
+            "example": "2023/11/12"
+          },
+          "max_uses": {
+            "type": "number",
+            "description": "Number of discount released",
+            "example": 100
+          },
+          "used_count": {
+            "type": "number",
+            "description": "Number of discount used",
+            "example": 5
+          },
+          "users_used": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of user used discount",
+            "example": [
+              "u1",
+              "u2"
+            ]
+          },
+          "max_uses_per_user": {
+            "type": "number",
+            "description": "Times that user can used discount",
+            "example": 1
+          },
+          "min_order_value": {
+            "type": "number",
+            "description": "Min price of order can apply discount",
+            "example": 1000
+          },
+          "shop_id": {
+            "type": "string",
+            "description": "Shop Id",
+            "example": "shop_1"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Check discount is active or not",
+            "example": false
+          },
+          "apply_to": {
+            "$ref": "#/components/schemas/DiscountApplyToEnum"
+          },
+          "product_apply_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of product id can apply discount",
+            "example": [
+              "p1",
+              "p2"
+            ]
+          }
+        }
+      },
       "Inventory": {
         "type": "object",
         "properties": {
@@ -1075,6 +1168,20 @@
           "electronics",
           "clothing",
           "furniture"
+        ]
+      },
+      "DiscountTypeEnum": {
+        "type": "string",
+        "enum": [
+          "fixed",
+          "percentage"
+        ]
+      },
+      "DiscountApplyToEnum": {
+        "type": "string",
+        "enum": [
+          "all",
+          "specific"
         ]
       }
     }

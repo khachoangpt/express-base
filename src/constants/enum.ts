@@ -44,3 +44,33 @@ export enum ProductTypeEnum {
   CLOTHING = 'clothing',
   FURNITURE = 'furniture',
 }
+
+/**
+ * @swagger
+ *   components:
+ *     schemas:
+ *       DiscountTypeEnum:
+ *         type: string
+ *         enum:
+ *           - fixed
+ *           - percentage
+ */
+export enum DiscountTypeEnum {
+  FIXED = 'fixed',
+  PERCENTAGE = 'percentage',
+}
+
+/**
+ * @swagger
+ *   components:
+ *     schemas:
+ *       DiscountApplyToEnum:
+ *         type: string
+ *         enum:
+ *           - all
+ *           - specific
+ */
+export enum DiscountApplyToEnum {
+  ALL = 'all',
+  SPECIFIC = 'specific',
+}
