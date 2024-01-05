@@ -830,6 +830,44 @@
           }
         }
       },
+      "Inventory": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "description": "Product Id",
+            "example": "78324jfm32234"
+          },
+          "location": {
+            "type": "string",
+            "description": "location",
+            "example": "Warehouse 01"
+          },
+          "stock": {
+            "type": "number",
+            "description": "stock",
+            "example": 10
+          },
+          "shop_id": {
+            "type": "string",
+            "description": "Shop Id",
+            "example": "cd34232mkk432"
+          },
+          "reservation": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          }
+        }
+      },
       "ClothingProductType": {
         "type": "object",
         "properties": {

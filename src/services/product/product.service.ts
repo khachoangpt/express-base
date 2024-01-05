@@ -4,6 +4,7 @@ import { ProductTypeEnum } from '@/constants'
 import { CreateProductParams } from '@/controllers/customer/products/create-product/create-product.customer.schema'
 import { UpdateProductParams } from '@/controllers/customer/products/update-product/update-product.customer.schema'
 import { BadRequestError, NotFoundError } from '@/core/error.response'
+import inventoryModel from '@/models/inventory/inventory.model'
 import productModel, { Product } from '@/models/product/product.model'
 import clothingProductTypeModel from '@/models/product-type/clothing.product-type.model'
 import electronicProductTypeModel from '@/models/product-type/electronic.product-type.model'
@@ -170,6 +171,13 @@ class ProductService {
     const product: Product = await productModel.create({
       ...this.product,
       _id: id,
+    })
+
+    // create inventory
+    await inventoryModel.create({
+      product_id: product._id,
+      shop_id: product.shop,
+      stock: product.quantity,
     })
     return product
   }
