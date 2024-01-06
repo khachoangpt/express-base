@@ -1,4 +1,4 @@
-import { InferSchemaType, model, Schema } from 'mongoose'
+import { InferSchemaType, model, Schema, Types } from 'mongoose'
 
 import { DiscountApplyToEnum, DiscountTypeEnum } from '@/constants'
 
@@ -63,7 +63,7 @@ const discountSchema = new Schema(
       required: true,
     },
     shop_id: {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: 'Shop',
     },
     is_active: {
@@ -84,7 +84,7 @@ const discountSchema = new Schema(
 )
 
 export type Discount = InferSchemaType<typeof discountSchema> & {
-  _id: Schema.Types.ObjectId
+  _id: Types.ObjectId
 }
 
 export default model<Discount>(DOCUMENT_NAME, discountSchema)

@@ -226,6 +226,43 @@
         }
       }
     },
+    "/customer/discount/{id}/products": {
+      "get": {
+        "summary": "Get products by discount",
+        "operationId": "GetProductByDiscount",
+        "description": "Get products by discount",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "discount id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Discount"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "description": "An array of products",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/customer/discount/{id}": {
       "patch": {
         "summary": "Update discount",

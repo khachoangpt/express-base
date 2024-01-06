@@ -1,5 +1,3 @@
-'use strict'
-
 import { Request, Response } from 'express'
 
 import statusCodes from '@/constants/http-status-code/status-codes'
@@ -21,12 +19,12 @@ import {
  *       operationId: UpdateDiscount
  *       description: Update discount
  *       parameters:
- *       - in: path
- *         name: id
- *         description: discount id
- *         schema:
- *           type: string
- *         required: true
+ *         - in: path
+ *           name: id
+ *           description: discount id
+ *           schema:
+ *             type: string
+ *           required: true
  *       tags:
  *         - Discount
  *       requestBody:

@@ -6,7 +6,7 @@ const COLLECTION_NAME = 'Inventories'
 const inventorySchema = new Schema(
   {
     product_id: {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: 'Product',
     },
     location: {
@@ -18,7 +18,7 @@ const inventorySchema = new Schema(
       required: true,
     },
     shop_id: {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: 'Shop',
     },
     reservation: {

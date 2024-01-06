@@ -30,7 +30,7 @@ const tokenSchema = new Schema(
 )
 
 export type Token = InferSchemaType<typeof tokenSchema> & {
-  _id: Schema.Types.ObjectId
+  _id: Types.ObjectId
 }
 
 export default model<Token>(DOCUMENT_NAME, tokenSchema)

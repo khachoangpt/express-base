@@ -1,26 +1,30 @@
 import dayjs from 'dayjs'
-import { Schema } from 'mongoose'
+import { Types } from 'mongoose'
 
+import { DiscountApplyToEnum } from '@/constants'
 import { CreateDiscountBody } from '@/controllers/customer/discount/create-discount/create-discount.customer.schema'
 import { UpdateDiscountBody } from '@/controllers/customer/discount/update-discount/update-discount.customer.schema'
 import { BadRequestError, NotFoundError } from '@/core/error.response'
+import { Product } from '@/models/product/product.model'
 import DiscountRepository from '@/repositories/discount/discount.repository'
+
+import ProductServiceFactory from '../product/product.service'
 
 type DependencyInjectable = {
   discountRepository: DiscountRepository
+  productService: ProductServiceFactory
 }
 
 class DiscountService {
   protected readonly discountRepository: DiscountRepository
+  protected readonly productService: ProductServiceFactory
 
-  constructor({ discountRepository }: DependencyInjectable) {
+  constructor({ discountRepository, productService }: DependencyInjectable) {
     this.discountRepository = discountRepository
+    this.productService = productService
   }
 
-  async createDiscount(
-    shop_id: Schema.Types.ObjectId,
-    payload: CreateDiscountBody,
-  ) {
+  async createDiscount(shop_id: Types.ObjectId, payload: CreateDiscountBody) {
     const now = dayjs()
     const startDate = dayjs(payload.start_date)
     const endDate = dayjs(payload.end_date)
@@ -50,8 +54,8 @@ class DiscountService {
   }
 
   async updateDiscount(
-    id: Schema.Types.ObjectId,
-    payload: UpdateDiscountBody & { shop_id: Schema.Types.ObjectId },
+    id: Types.ObjectId,
+    payload: UpdateDiscountBody & { shop_id: Types.ObjectId },
   ) {
     const now = dayjs()
     const startDate = dayjs(payload.start_date)
@@ -76,6 +80,50 @@ class DiscountService {
     const discountUpdate = await this.discountRepository.findDiscountById(id)
 
     return discountUpdate
+  }
+
+  async getProductsByDiscount({
+    discountId,
+    limit,
+    offset,
+    select,
+    sort,
+  }: {
+    discountId: Types.ObjectId
+    limit?: number
+    offset?: number
+    sort?: string
+    select?: string[]
+  }) {
+    const discountFind =
+      await this.discountRepository.findDiscountById(discountId)
+
+    if (!discountFind) {
+      throw new NotFoundError('Discount Not Found')
+    }
+
+    let products: Product[] = []
+    const options = { limit, offset, select, sort }
+
+    switch (discountFind.apply_to) {
+      case DiscountApplyToEnum.ALL:
+        products = await this.productService.getAllProducts({
+          filter: { is_published: true },
+          ...options,
+        })
+        break
+      case DiscountApplyToEnum.SPECIFIC:
+        products = await this.productService.getAllProducts({
+          filter: {
+            is_published: true,
+            _id: { $in: discountFind.product_apply_ids },
+          },
+          ...options,
+        })
+        break
+    }
+
+    return products
   }
 }
 
