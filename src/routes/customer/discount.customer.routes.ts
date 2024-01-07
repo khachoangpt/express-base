@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import createDiscountCustomerController from '@/controllers/customer/discount/create-discount/create-discount.customer.controller'
+import getDiscountByShopCustomerController from '@/controllers/customer/discount/get-discounts-by-shop/get-discount-by-shop.customer.controller'
 import getProductsByDiscountCustomerController from '@/controllers/customer/discount/get-products-by-discount/get-products-by-discount.customer.controller'
 import updateDiscountCustomerController from '@/controllers/customer/discount/update-discount/update-discount.customer.controller'
 import { asyncHandler, authentication } from '@/utils'
@@ -14,6 +15,8 @@ export default (app: Router) => {
     '/:id/products',
     asyncHandler(getProductsByDiscountCustomerController),
   )
+
+  router.get('/shop/:shopId', asyncHandler(getDiscountByShopCustomerController))
 
   router.use(authentication)
 

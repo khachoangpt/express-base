@@ -1,7 +1,8 @@
-import { Types, UpdateWriteOpResult } from 'mongoose'
+import { FilterQuery, SortOrder, Types, UpdateWriteOpResult } from 'mongoose'
 
 import { CreateDiscountBody } from '@/controllers/customer/discount/create-discount/create-discount.customer.schema'
 import discountModel, { Discount } from '@/models/discount/discount.model'
+import { getSelectData } from '@/utils'
 
 class DiscountRepository {
   async findDiscountById(id: Types.ObjectId) {
@@ -30,6 +31,33 @@ class DiscountRepository {
       payload,
     )
     return discountUpdate
+  }
+
+  async getAll({
+    filter,
+    limit,
+    offset,
+    select,
+    sort,
+  }: {
+    limit?: number
+    offset?: number
+    sort?: string
+    filter?: FilterQuery<Discount>
+    select?: string[]
+  }) {
+    const sortBy: { [key: string]: SortOrder } =
+      sort === 'ctime' ? { _id: -1 } : { _id: 1 }
+    const selectData = getSelectData(select ?? [])
+
+    const products = await discountModel
+      .find(filter ?? {})
+      .sort(sortBy)
+      .skip(offset ?? 0)
+      .limit(limit ?? 50)
+      .select(selectData)
+      .lean()
+    return products
   }
 }
 

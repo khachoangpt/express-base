@@ -6,15 +6,14 @@ import { toObjectId } from '@/utils'
 
 /**
  * @swagger
- *   /customer/discount/{id}/products:
+ *   /customer/discount/shop/{shopId}:
  *     get:
- *       summary: Get products by discount
- *       operationId: GetProductByDiscount
- *       description: Get products by discount
+ *       summary: Get discounts by shop
+ *       operationId: GetDiscountsByShop
+ *       description: Get discounts by shop
  *       parameters:
  *         - in: path
- *           name: id
- *           description: discount id
+ *           name: shopId
  *           schema:
  *             type: string
  *           required: true
@@ -56,24 +55,25 @@ import { toObjectId } from '@/utils'
  *                    $ref: '#/components/schemas/Product'
  */
 export default async (req: Request, res: Response) => {
-  const discountId = toObjectId(req.params.id as string)
+  const shopId = toObjectId(req.params.shopId as string)
   const limit = isNaN(Number(req.query.limit as string))
     ? 50
     : Number(req.query.limit as string)
   const offset = isNaN(Number(req.query.offset as string))
     ? 0
     : Number(req.query.offset as string)
-  const select = (req.query.select as string).split(',')
+  const select = req.query.select as string[]
   const sort = req.query.sort as string
+
   const discountService: DiscountService = req.scope.resolve('discountService')
 
-  const products = await discountService.getProductsByDiscount({
-    discountId,
+  const discounts = await discountService.getDiscountsByShop({
+    shopId,
     limit,
     offset,
     select,
     sort,
   })
 
-  res.status(statusCodes.OK).json(products)
+  res.status(statusCodes.OK).json(discounts)
 }

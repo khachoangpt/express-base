@@ -5,6 +5,7 @@ import { DiscountApplyToEnum } from '@/constants'
 import { CreateDiscountBody } from '@/controllers/customer/discount/create-discount/create-discount.customer.schema'
 import { UpdateDiscountBody } from '@/controllers/customer/discount/update-discount/update-discount.customer.schema'
 import { BadRequestError, NotFoundError } from '@/core/error.response'
+import { Discount } from '@/models/discount/discount.model'
 import { Product } from '@/models/product/product.model'
 import DiscountRepository from '@/repositories/discount/discount.repository'
 
@@ -124,6 +125,28 @@ class DiscountService {
     }
 
     return products
+  }
+
+  async getDiscountsByShop({
+    shopId,
+    limit,
+    offset,
+    select,
+    sort,
+  }: {
+    shopId: Types.ObjectId
+    limit?: number
+    offset?: number
+    sort?: string
+    select?: string[]
+  }) {
+    const options = { limit, offset, select, sort }
+    const discounts: Discount[] = await this.discountRepository.getAll({
+      filter: { shop_id: shopId },
+      ...options,
+    })
+
+    return discounts
   }
 }
 
