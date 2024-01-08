@@ -2,6 +2,7 @@ import { Router } from 'express'
 
 import accessCustomerRoutes from './access.customer.routes'
 import apikeyCustomerRoutes from './apikey.customer.routes'
+import cartCustomerRoutes from './cart.customer.routes'
 import discountCustomerRoutes from './discount.customer.routes'
 import productCustomerRoutes from './product.customer.routes'
 
@@ -11,6 +12,7 @@ export default (app: Router) => {
   app.use('/customer', router)
 
   productCustomerRoutes(router)
+  cartCustomerRoutes(router)
   discountCustomerRoutes(router)
   accessCustomerRoutes(router)
   apikeyCustomerRoutes(router)

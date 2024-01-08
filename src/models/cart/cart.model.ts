@@ -19,7 +19,7 @@ const cartSchema = new Schema(
       default: CartState.ACTIVE,
     },
     products: {
-      type: Schema.Types.Array,
+      type: [Schema.Types.Array],
       required: true,
       default: [],
     },
