@@ -59,6 +59,10 @@ class DiscountRepository {
       .lean()
     return products
   }
+
+  async delete(filter: FilterQuery<Discount>) {
+    return discountModel.findByIdAndRemove(filter)
+  }
 }
 
 export default DiscountRepository

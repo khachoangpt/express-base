@@ -226,6 +226,78 @@
         }
       }
     },
+    "/customer/discount/{id}": {
+      "delete": {
+        "summary": "Delete a discount",
+        "operationId": "DeleteDiscount",
+        "description": "Delete a discount",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Discount"
+        ],
+        "responses": {
+          "200": {
+            "description": "A discount",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Discount"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update discount",
+        "operationId": "UpdateDiscount",
+        "description": "Update discount",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "discount id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Discount"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDiscountBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "A discount",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Discount"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/customer/discount/shop/{shopId}": {
       "get": {
         "summary": "Get discounts by shop",
@@ -364,48 +436,6 @@
                   "items": {
                     "$ref": "#/components/schemas/Product"
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/customer/discount/{id}": {
-      "patch": {
-        "summary": "Update discount",
-        "operationId": "UpdateDiscount",
-        "description": "Update discount",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "discount id",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "tags": [
-          "Discount"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateDiscountBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "A discount",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Discount"
                 }
               }
             }

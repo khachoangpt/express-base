@@ -69,7 +69,7 @@ export const authentication = asyncHandler(
 
     // check user exist
     const shopService: ShopService = req.scope.resolve('shopService')
-    const userFind: Shop | null = await shopService.findById(userId)
+    const userFind: Shop | null = await shopService.findById(toObjectId(userId))
     if (!userFind) {
       throw new NotFoundError('User Not Found')
     }

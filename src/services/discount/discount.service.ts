@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { Types } from 'mongoose'
 
-import { DiscountApplyToEnum } from '@/constants'
+import { DiscountApplyToEnum, DiscountTypeEnum } from '@/constants'
 import { CreateDiscountBody } from '@/controllers/customer/discount/create-discount/create-discount.customer.schema'
 import { UpdateDiscountBody } from '@/controllers/customer/discount/update-discount/update-discount.customer.schema'
 import { BadRequestError, NotFoundError } from '@/core/error.response'
@@ -10,19 +10,27 @@ import { Product } from '@/models/product/product.model'
 import DiscountRepository from '@/repositories/discount/discount.repository'
 
 import ProductServiceFactory from '../product/product.service'
+import ShopService from '../shop/shop.service'
 
 type DependencyInjectable = {
   discountRepository: DiscountRepository
   productService: ProductServiceFactory
+  shopService: ShopService
 }
 
 class DiscountService {
   protected readonly discountRepository: DiscountRepository
   protected readonly productService: ProductServiceFactory
+  protected readonly shopService: ShopService
 
-  constructor({ discountRepository, productService }: DependencyInjectable) {
+  constructor({
+    discountRepository,
+    productService,
+    shopService,
+  }: DependencyInjectable) {
     this.discountRepository = discountRepository
     this.productService = productService
+    this.shopService = shopService
   }
 
   async createDiscount(shop_id: Types.ObjectId, payload: CreateDiscountBody) {
@@ -147,6 +155,97 @@ class DiscountService {
     })
 
     return discounts
+  }
+
+  async getDiscountAmount({
+    discountId,
+    userId,
+    productIds,
+  }: {
+    discountId: Types.ObjectId
+    userId: Types.ObjectId
+    productIds: Types.ObjectId[]
+  }) {
+    const discountFind =
+      await this.discountRepository.findDiscountById(discountId)
+
+    if (!discountFind) {
+      throw new NotFoundError('Discount Not Found')
+    }
+
+    // check discount is expired
+    if (
+      discountFind?.is_active === false ||
+      dayjs(discountFind?.end_date).diff(dayjs()) >= 0
+    ) {
+      throw new BadRequestError('Discount is expired')
+    }
+
+    if (discountFind?.used_count >= discountFind?.max_uses) {
+      throw new BadRequestError('All discount are used')
+    }
+
+    let productIdsValid: Types.ObjectId[] = []
+    switch (discountFind?.apply_to) {
+      case DiscountApplyToEnum.ALL:
+        productIdsValid = productIds
+        break
+      case DiscountApplyToEnum.SPECIFIC:
+        productIdsValid = productIds.filter(
+          (id) => discountFind?.product_apply_ids.includes(id.toString()),
+        )
+        break
+    }
+
+    const productsFind = await this.productService.getAllProducts({
+      filter: { _id: { $in: productIdsValid } },
+      limit: 1000,
+      offset: 0,
+    })
+
+    const total = productsFind.reduce((acc, product) => acc + product.price, 0)
+
+    if (total < discountFind?.min_order_value) {
+      throw new BadRequestError('Total price not enough')
+    }
+
+    if (
+      discountFind?.users_used.filter((id) => id === userId.toString())
+        .length >= discountFind?.max_uses_per_user
+    ) {
+      throw new BadRequestError('User was used all times for this discount')
+    }
+
+    let discountAmount = 0
+    switch (discountFind?.type) {
+      case DiscountTypeEnum.FIXED:
+        if (total <= discountFind?.value) {
+          discountAmount = total
+        } else {
+          discountAmount = total - discountFind?.value
+        }
+        break
+      case DiscountTypeEnum.PERCENTAGE:
+        discountAmount = total * (discountFind?.value / 100)
+        break
+    }
+
+    return discountAmount
+  }
+
+  async deleteDiscount({
+    discountId,
+    shopId,
+  }: {
+    discountId: Types.ObjectId
+    shopId: Types.ObjectId
+  }) {
+    const discountDeleted: Discount | null =
+      await this.discountRepository.delete({ _id: discountId, shop_id: shopId })
+    if (!discountDeleted) {
+      throw new BadRequestError('No discount was deleted')
+    }
+    return discountDeleted
   }
 }
 

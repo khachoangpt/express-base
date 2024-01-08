@@ -49,7 +49,7 @@ const discountSchema = new Schema(
     },
     users_used: {
       // list of user used discount
-      type: Schema.Types.Array,
+      type: [Schema.Types.String],
       default: [],
     },
     max_uses_per_user: {
@@ -76,7 +76,7 @@ const discountSchema = new Schema(
       default: DiscountApplyToEnum.ALL,
     },
     product_apply_ids: {
-      type: Schema.Types.Array,
+      type: [Schema.Types.String],
       default: [],
     },
   },
