@@ -35,6 +35,37 @@
           }
         }
       },
+      "Cart": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Cart Id",
+            "example": "cart_vkv34"
+          },
+          "state": {
+            "$ref": "#/components/schemas/CartState"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "Product list in cart",
+            "example": []
+          },
+          "count": {
+            "type": "number",
+            "description": "Number of products in cart",
+            "example": 1
+          },
+          "userId": {
+            "type": "string",
+            "description": "User Id",
+            "example": "user_nhc45"
+          }
+        }
+      },
       "Discount": {
         "type": "object",
         "properties": {
@@ -387,6 +418,15 @@
         "enum": [
           "all",
           "specific"
+        ]
+      },
+      "CartState": {
+        "type": "string",
+        "enum": [
+          "active",
+          "completed",
+          "failed",
+          "pending"
         ]
       }
     }

@@ -74,3 +74,22 @@ export enum DiscountApplyToEnum {
   ALL = 'all',
   SPECIFIC = 'specific',
 }
+
+/**
+ * @swagger
+ *   components:
+ *     schemas:
+ *       CartState:
+ *         type: string
+ *         enum:
+ *           - active
+ *           - completed
+ *           - failed
+ *           - pending
+ */
+export enum CartState {
+  ACTIVE = 'active',
+  COMPLETED = 'completed',
+  FAILED = 'failed',
+  PENDING = 'pending',
+}
