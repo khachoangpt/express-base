@@ -175,24 +175,24 @@ class DiscountService {
 
     // check discount is expired
     if (
-      discountFind?.is_active === false ||
-      dayjs(discountFind?.end_date).diff(dayjs()) >= 0
+      discountFind.is_active === false ||
+      dayjs(discountFind.end_date).diff(dayjs()) >= 0
     ) {
       throw new BadRequestError('Discount is expired')
     }
 
-    if (discountFind?.used_count >= discountFind?.max_uses) {
+    if (discountFind.used_count >= discountFind.max_uses) {
       throw new BadRequestError('All discount are used')
     }
 
     let productIdsValid: Types.ObjectId[] = []
-    switch (discountFind?.apply_to) {
+    switch (discountFind.apply_to) {
       case DiscountApplyToEnum.ALL:
         productIdsValid = productIds
         break
       case DiscountApplyToEnum.SPECIFIC:
-        productIdsValid = productIds.filter(
-          (id) => discountFind?.product_apply_ids.includes(id.toString()),
+        productIdsValid = productIds.filter((id) =>
+          discountFind.product_apply_ids.includes(id.toString()),
         )
         break
     }
@@ -205,28 +205,28 @@ class DiscountService {
 
     const total = productsFind.reduce((acc, product) => acc + product.price, 0)
 
-    if (total < discountFind?.min_order_value) {
+    if (total < discountFind.min_order_value) {
       throw new BadRequestError('Total price not enough')
     }
 
     if (
-      discountFind?.users_used.filter((id) => id === userId.toString())
-        .length >= discountFind?.max_uses_per_user
+      discountFind.users_used.filter((id) => id === userId.toString()).length >=
+      discountFind.max_uses_per_user
     ) {
       throw new BadRequestError('User was used all times for this discount')
     }
 
     let discountAmount = 0
-    switch (discountFind?.type) {
+    switch (discountFind.type) {
       case DiscountTypeEnum.FIXED:
-        if (total <= discountFind?.value) {
+        if (total <= discountFind.value) {
           discountAmount = total
         } else {
-          discountAmount = total - discountFind?.value
+          discountAmount = total - discountFind.value
         }
         break
       case DiscountTypeEnum.PERCENTAGE:
-        discountAmount = total * (discountFind?.value / 100)
+        discountAmount = total * (discountFind.value / 100)
         break
     }
 
