@@ -2,6 +2,7 @@ import { Types } from 'mongoose'
 
 import { CartState } from '@/constants'
 import { AddToCartBody } from '@/controllers/customer/cart/add-to-cart/add-to-cart.customer.schema'
+import { UpdateQuantityItemBody } from '@/controllers/customer/cart/update-quantity-item/update-quantity-item.customer.schema'
 import {
   BadRequestError,
   ConflictRequestError,
@@ -69,7 +70,6 @@ class CartService {
       throw new NotFoundError('Cart Not Found')
     }
     const products = cart.products as unknown as AddToCartBody[]
-
     if (!products?.find((product) => product.productId === productId)) {
       throw new BadRequestError('Product is not in cart')
     }
@@ -80,6 +80,29 @@ class CartService {
           products: { productId: productId.toString() },
         },
         count: cart.products.length - 1,
+      },
+    })
+    return cartUpdated
+  }
+
+  async updateQuantityItem({
+    productId,
+    oldQuantity,
+    newQuantity,
+    userId,
+  }: UpdateQuantityItemBody & {
+    userId: Types.ObjectId
+  }) {
+    const cart = await this.cartRepository.findOne({ userId })
+    if (!cart) {
+      throw new NotFoundError('Cart Not Found')
+    }
+    const cartUpdated = await this.cartRepository.updateOne({
+      filter: { _id: cart._id, 'products.productId': productId },
+      update: {
+        $inc: {
+          'products.$.quantity': newQuantity - oldQuantity,
+        },
       },
     })
     return cartUpdated
