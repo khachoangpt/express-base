@@ -13,4 +13,9 @@ export const appConfig: AppConfig = {
     DATABASE_CONNECTION: process.env.DATABASE_CONNECTION ?? '',
   },
   cors: { CUSTOMER_CORS: process.env.CUSTOMER_CORS ?? '' },
+  redis: {
+    url: process.env.REDIS_URL ?? '',
+    redis_options: {},
+    redis_prefix: process.env.REDIS_PREFIX ?? '',
+  },
 }

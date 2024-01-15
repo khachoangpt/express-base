@@ -1,3 +1,5 @@
+import { RedisOptions } from 'ioredis'
+
 import { DbTypeEnum, NodeEnvEnum } from '@/constants'
 
 export type AppConfig = {
@@ -9,5 +11,10 @@ export type AppConfig = {
   }
   cors: {
     CUSTOMER_CORS: string
+  }
+  redis: {
+    url: string
+    redis_prefix?: string
+    redis_options?: RedisOptions
   }
 }
