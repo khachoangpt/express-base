@@ -1,4 +1,10 @@
-import { FilterQuery, Types } from 'mongoose'
+import {
+  FilterQuery,
+  QueryOptions,
+  Types,
+  UpdateQuery,
+  UpdateWithAggregationPipeline,
+} from 'mongoose'
 
 import { CartState } from '@/constants'
 import { AddToCartBody } from '@/controllers/customer/cart/add-to-cart/add-to-cart.customer.schema'
@@ -6,7 +12,8 @@ import cartModel, { Cart } from '@/models/cart/cart.model'
 
 class CartRepository {
   async findOne(filter: FilterQuery<Cart>) {
-    return await cartModel.findOne(filter).lean()
+    const cart = await cartModel.findOne(filter).lean()
+    return cart
   }
 
   async create(userId: Types.ObjectId) {
@@ -37,6 +44,20 @@ class CartRepository {
       },
     )
     const cartUpdated = await this.findOne({ _id: id })
+    return cartUpdated
+  }
+
+  async updateOne({
+    filter,
+    update,
+    options,
+  }: {
+    filter: FilterQuery<Cart>
+    update: UpdateQuery<Cart> | UpdateWithAggregationPipeline
+    options?: QueryOptions<Cart> | null
+  }) {
+    await cartModel.updateOne(filter, update, options)
+    const cartUpdated = await this.findOne(filter)
     return cartUpdated
   }
 }

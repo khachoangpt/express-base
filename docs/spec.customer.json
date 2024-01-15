@@ -226,6 +226,46 @@
         }
       }
     },
+    "/customer/cart/{id}/{productId}": {
+      "delete": {
+        "summary": "Delete a item in cart",
+        "operationId": "DeleteItem",
+        "description": "Delete item in cart",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "productId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Cart"
+        ],
+        "responses": {
+          "200": {
+            "description": "A cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cart"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/customer/discount": {
       "post": {
         "summary": "Create discount",

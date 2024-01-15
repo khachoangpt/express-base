@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import addToCartCustomerController from '@/controllers/customer/cart/add-to-cart/add-to-cart.customer.controller'
+import deleteCartItemCustomerController from '@/controllers/customer/cart/delete-item/delete-cart-item.customer.controller'
 import { asyncHandler, authentication } from '@/utils'
 
 const router = Router()
@@ -11,6 +12,11 @@ export default (app: Router) => {
   router.use(authentication)
 
   router.patch('/add-to-cart', asyncHandler(addToCartCustomerController))
+
+  router.delete(
+    '/:id/:productId',
+    asyncHandler(deleteCartItemCustomerController),
+  )
 
   return router
 }
