@@ -4,7 +4,6 @@ import { EOL } from 'os'
 
 import { appConfig } from '@/configs/app-config'
 import { logger } from '@/configs/logger'
-import { NodeEnvEnum } from '@/constants'
 
 type Options = {
   container: AwilixContainer
@@ -21,18 +20,16 @@ export default async ({ container }: Options): Promise<void> => {
     try {
       await redisClient.connect()
       logger?.info(`Connection to Redis established`)
-    } catch (err) {
-      logger?.error(`An error occurred while connecting to Redis:${EOL} ${err}`)
+    } catch (error) {
+      logger?.error(
+        `An error occurred while connecting to Redis:${EOL} ${error}`,
+      )
     }
 
     container.register({
       redisClient: asValue(redisClient),
     })
   } else {
-    if (appConfig.NODE_ENV === NodeEnvEnum.PRODUCTION) {
-      logger.warn(
-        `No Redis url was provided - using Medusa in production without a proper Redis instance is not recommended`,
-      )
-    }
+    logger.warn(`No Redis url was provided`)
   }
 }

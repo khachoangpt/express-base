@@ -16,6 +16,5 @@ export const appConfig: AppConfig = {
   redis: {
     url: process.env.REDIS_URL ?? '',
     redis_options: {},
-    redis_prefix: process.env.REDIS_PREFIX ?? '',
   },
 }

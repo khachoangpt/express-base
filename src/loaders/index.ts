@@ -5,6 +5,7 @@ import { logger } from '@/configs/logger'
 
 import apiLoader from './api.loader'
 import databaseLoader from './database.loader'
+import jobLoader from './job.loader'
 import modelsLoader from './models.loader'
 import redisLoader from './redis.loader'
 import repositoriesLoader from './repositories.loader'
@@ -40,6 +41,8 @@ export default async (app: Express) => {
   logger.info(`Success Services Loader`)
 
   await redisLoader({ container })
+
+  await jobLoader({ container })
 
   return { container }
 }

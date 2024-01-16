@@ -14,7 +14,6 @@ export type AppConfig = {
   }
   redis: {
     url: string
-    redis_prefix?: string
     redis_options?: RedisOptions
   }
 }
